@@ -1,5 +1,10 @@
 // NoticeEdit.tsx
-import React from 'react';
+import React, {
+    useMemo, 
+    useRef
+} from 'react';
+import ReactQuill, {Quill} from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 type Notice = {
     id: string,
@@ -10,7 +15,8 @@ type Notice = {
 
 type NoticeEditProps = {
     onNoticeAdded: () => void,
-  id?: string; // 수정 시에는 id가 제공됩니다.
+    onCancel: () => void,
+    id?: string; // 수정 시에는 id가 제공됩니다.
 };
 
 type NoticeEditState = {
@@ -19,7 +25,27 @@ type NoticeEditState = {
   date: string;
 };
 
+const formats = [
+    'font',
+  'header',
+  'bold',
+  'italic',
+  'underline',
+  'strike',
+  'blockquote',
+  'list',
+  'bullet',
+  'indent',
+  'link',
+  'align',
+  'color',
+  'background',
+  'size',
+  'h1',
+]
+
 class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
+    quillRef: React.RefObject<ReactQuill>;
   constructor(props: NoticeEditProps) {
     super(props);
     this.state = {
@@ -27,6 +53,7 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
       content: '',
       date: ''
     };
+    this.quillRef = React.createRef();
   }
 
   componentDidMount() {
@@ -39,7 +66,9 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
       }
     }
   }
-
+  handleContentChange = (content: string) => {
+    this.setState({ content });
+  };
   
 
   handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -72,26 +101,62 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
     this.props.onNoticeAdded();
   };
 
+  insertHtmlContent = () => {
+    const htmlContent = prompt("HTML 입력");
+    if(!htmlContent) return;
+
+    const quillInstance = this.quillRef.current?.getEditor();
+    if(quillInstance){
+        const range = quillInstance.getSelection();
+        if(range){
+            quillInstance.clipboard.dangerouslyPasteHTML(range.index, htmlContent);
+        }
+    }
+  }
+
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Title:
-          <input
-            type="text"
-            value={this.state.title}
-            onChange={e => this.setState({ title: e.target.value })}
-          />
-        </label>
-        <label>
-          Content:
-          <textarea
-            value={this.state.content}
-            onChange={e => this.setState({ content: e.target.value })}
-          />
-        </label>
-        <button type="submit">저장</button>
-      </form>
+        <div>
+            <form onSubmit={this.handleSubmit}>
+                <label>
+                Title:
+                <input
+                    type="text"
+                    value={this.state.title}
+                    onChange={e => this.setState({ title: e.target.value })}
+                />
+                </label>
+                <label>
+                Content:
+                {/* <textarea
+                    value={this.state.content}
+                    onChange={e => this.setState({ content: e.target.value })}
+                /> */}
+                <ReactQuill
+                    ref={this.quillRef}
+                    theme='snow'
+                    formats={formats}
+                    value={this.state.content}
+                    onChange={this.handleContentChange}
+                />
+                </label>       
+                <button type="submit">저장</button>
+            </form>
+            {/* <button onClick={()=> this.insertHtmlContent()}>qqudghks</button> */}
+            <div className="Footer">
+                <div className="Footer-btn">
+                    <div>
+                        <h3>저장하기</h3>
+                    </div>
+                    <div onClick={()=> this.insertHtmlContent()}>
+                        <h3>HTML 입력</h3>
+                    </div>
+                    <div onClick={this.props.onCancel}>
+                        <h3>취소하기</h3>
+                    </div>     
+                </div>
+            </div>
+        </div>      
     );
   }
 }

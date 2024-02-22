@@ -3,6 +3,9 @@ import React from 'react';
 import NoticeList from './component/NoticeList';
 import NoticeDetail from './component/NoticeDetail';
 import NoticeEdit from './component/NoticeEdit';
+import "./App.css";
+import Header from './component/header/Header';
+import Footer from './component/footer/Footer';
 
 type Notice = {
   id: string,
@@ -32,7 +35,7 @@ class App extends React.Component<{}, AppState> {
     this.setState({ currentScreen: 'list', selectedNoticeId: undefined });
   }
 
-  handleEditNotice = (id : string) => {
+  handleEditNotice = (id : string | undefined) => {
     this.setState({currentScreen: 'edit', selectedNoticeId: id });
   }
 
@@ -59,29 +62,42 @@ class App extends React.Component<{}, AppState> {
     const { currentScreen, selectedNoticeId } = this.state;
 
     return (
-      <div>
-        {currentScreen === 'list' && (
-          <div>
-            <NoticeList onNoticeClick={this.handleNoticeClick} />
-            <button onClick={this.handleAddNotice}>공지사항 추가</button>
-          </div>
-        )}
+      <div className='App'>
+        <Header />        
+        <main className='Mains'>
+          {currentScreen === 'list' && (
+            <div>
+              <NoticeList onNoticeClick={this.handleNoticeClick} />
+              {/* <button onClick={this.handleAddNotice}>공지사항 추가</button> */}
+            </div>
+          )}
 
-        {currentScreen === 'detail' && selectedNoticeId && (
-          <NoticeDetail 
-            id={selectedNoticeId} 
-            onBackToList={this.handleBackToList}
-            onEditNotice={() => this.handleEditNotice(selectedNoticeId)}
-            onDelete={this.handleDeleteNotice}
-          />
-        )}
+          {currentScreen === 'detail' && selectedNoticeId && (
+            <NoticeDetail 
+              id={selectedNoticeId} 
+              onBackToList={this.handleBackToList}
+              onEditNotice={() => this.handleEditNotice(selectedNoticeId)}
+              onDelete={this.handleDeleteNotice}
+            />
+          )}
 
-        {currentScreen === 'edit' && (
-          <NoticeEdit 
-            id={selectedNoticeId}
-            onNoticeAdded = {this.handleNoticeAdded}          
-          />
-        )}
+          {currentScreen === 'edit' && (
+            <NoticeEdit 
+              id={selectedNoticeId}
+              onNoticeAdded = {this.handleNoticeAdded}  
+              onCancel={this.handleNoticeAdded}        
+            />
+          )}
+        </main>
+        <Footer
+          appCurrentScreen = {this.state.currentScreen}
+          onAddNotice = {this.handleAddNotice}
+          selectedNoticeId={selectedNoticeId} 
+          onBackToList={this.handleBackToList}
+          onEditNotice={() => this.handleEditNotice(selectedNoticeId)}
+          onDelete={this.handleDeleteNotice}
+          onCancel={this.handleNoticeAdded}
+        />        
       </div>
     );
   }

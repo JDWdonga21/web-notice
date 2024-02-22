@@ -1,5 +1,55 @@
 .App {
+  margin-left: 30%;
+  margin-right: 30%;
+  width: 40%;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(226, 222, 209);
+}
+
+.Header{
+  width: 100%;
+  display: flax;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: rgb(236, 191, 11);
+}
+
+.Mains{  
+  width: 100%;
+  max-height: 500px;
+  overflow-y: scroll;
+}
+
+.NoticeLists {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;  
+}
+.NoticeList {
+  margin-bottom: 1px;  
+  width: 100%;
+  border: 1px solid #282c34;
+  background-color: azure;
+}
+
+.Footer{
+  width: 100%;
+  display: flax;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: rgb(222, 206, 140);
+}
+.Footer-btn{
+  display: flex;
+  margin: 4px;
+  flex-direction: row;
+  align-items: center;
+  justify-content:space-around;
 }
 
 .App-logo {

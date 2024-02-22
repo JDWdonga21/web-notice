@@ -34,13 +34,13 @@ class NoticeList extends React.Component<NoticeListprops, NoticeListState>{
     }
     render(): React.ReactNode {
         return(
-            <div>
+            <div className="NoticeLists">
                 <header>
-                    <h1>공지사항</h1>
+                    
                 </header>
                 <main>
                     {this.state.notices.map(notice => (
-                        <div key={notice.id} onClick={() => this.props.onNoticeClick(notice.id)}>
+                        <div className="NoticeList" key={notice.id} onClick={() => this.props.onNoticeClick(notice.id)}>
                             <h2>{notice.title}</h2>
                             <text>{notice.date}</text>
                         </div>

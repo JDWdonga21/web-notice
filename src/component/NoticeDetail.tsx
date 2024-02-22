@@ -1,5 +1,7 @@
 // NoticeDetail.tsx
 import React from 'react';
+import parse from 'html-react-parser';
+// import DOMPurify from 'dompurify';
 
 type Notice = {
     id: string,
@@ -47,10 +49,10 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
       <div>
         <h1>{this.state.title}</h1>
         <p>{this.state.date}</p>
-        <article>{this.state.content}</article>
-        <button onClick={this.props.onBackToList}>목록으로</button>
+        <article dangerouslySetInnerHTML={{ __html : content }} />
+        {/* <button onClick={this.props.onBackToList}>목록으로</button>
         <button onClick={this.props.onEditNotice}>수정하기</button>
-        <button onClick={() => this.props.onDelete(this.props.id)}>삭제하기</button>
+        <button onClick={() => this.props.onDelete(this.props.id)}>삭제하기</button> */}
       </div>
     );
   }
