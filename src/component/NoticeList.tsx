@@ -86,7 +86,7 @@ const styles: {[key in string]: CSSProperties}= {
         marginBottom: '5px',
         width: '94vw',
         // borderRight: '2px solid #282c34',
-        borderBottom: '3px solid #282c34',
+        borderBottom: '1px solid #7b879e',
         // backgroundColor: 'azure',
     },
     titleArea: {
