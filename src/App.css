@@ -6,7 +6,7 @@
   flex-direction: column;
   justify-content: space-between;  /* 푸터를 하단에 고정시키기 위해 변경 */
   align-items: center;
-  background-color: rgb(226, 222, 209);
+  background-color: rgb(255, 255, 255);
   margin: 0 auto; /* 페이지 중앙 정렬을 위해 수정 */ /* 추가: 마진 제거 */
   padding: 0;/* 추가: 패딩 제거 */
 }
@@ -34,7 +34,8 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  background-color: rgb(222, 206, 140);
+  background-color: rgb(255, 255, 255);
+  border-top: 2px solid #7e848f;
   position: fixed;
   /* 고정 위치 설정 */
   bottom: 0;

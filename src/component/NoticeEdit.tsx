@@ -91,6 +91,12 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
     const { title, editorHtml: content, date } = this.state;
     const { id, onNoticeAdded } = this.props;
 
+    // 제목 또는 내용이 비어 있는지 확인
+    if (!title.trim() || !content.trim()) {
+        alert('제목과 내용을 모두 입력해주세요.');
+        return; // 함수 실행 중단
+    }
+
     const newNotice = { title, content, date: date || new Date().toISOString() };
 
     const savedNotices = JSON.parse(localStorage.getItem('notices') || '[]');
@@ -249,7 +255,6 @@ const styles: {[key in string]: CSSProperties}= {
         padding: '10px',
         marginLeft: '5%',
         marginRight: '5%',
-        marginBottom: '5px',
         width: '94vw',        
         borderBottom: '1px solid #121417',
     },
