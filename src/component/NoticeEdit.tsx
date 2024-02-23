@@ -6,6 +6,7 @@ import React, {
 } from 'react';
 import ReactQuill, {Quill} from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import debounce from 'lodash.debounce';
 
 type Notice = {
     id: string,
@@ -52,6 +53,7 @@ const formats = [
 
 class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
   quillRef: React.RefObject<ReactQuill>;
+  //updateContentFromTextarea: any;
   constructor(props: NoticeEditProps) {
     super(props);
     this.state = {
@@ -63,6 +65,7 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
       htmlInput: '', // 사용자가 입력한 HTML
     };
     this.quillRef = React.createRef();
+    this.updateContentFromTextarea = debounce(this.updateContentFromTextarea, 1500);
   }
 
   componentDidMount() {
@@ -84,6 +87,34 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
   }
   handleContentChange = (content: string) => {
     this.setState({ content });
+  };
+
+  // ReactQuill의 변경사항을 처리하는 핸들러
+  handleEditorChange = (content: string) => {
+    this.setState({ editorHtml: content, htmlInput: content }); // ReactQuill 변경 시 htmlInput도 업데이트
+  };
+
+  // textarea 입력 변경사항을 처리하는 핸들러
+  // handleHtmlInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  //   const htmlContent = e.target.value;
+  //   this.setState({ htmlInput: htmlContent, editorHtml: htmlContent }); // textarea 변경 시 editorHtml도 업데이트
+  // };
+
+  // 입력이 실제로 처리되는 함수
+  handleHtmlInputChange = (htmlContent) => {
+    this.setState({ htmlInput: htmlContent, editorHtml: htmlContent });
+  };
+
+  // textarea의 내용을 업데이트하고 ReactQuill과 동기화하는 메서드
+  updateContentFromTextarea = (html: string) => {
+    this.setState({ editorHtml: html, htmlInput: html });
+  };
+
+  // textarea의 입력 변경 이벤트 핸들러
+  handleTextareaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const html = event.target.value;
+    this.setState({ htmlInput: html });
+    this.updateContentFromTextarea(html);
   };
 
   saveNotice = () => {
@@ -118,31 +149,6 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
   handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     this.saveNotice();
-    // const { title, content, date } = this.state;
-    // const { id } = this.props;
-
-    // const newNotice = { title, content, date : date || new Date().toISOString() };
-  
-    // // 수정인 경우와 추가인 경우를 분리하여 처리합니다.
-    // const savedNotices = JSON.parse(localStorage.getItem('notices') || '[]');
-    // if (this.props.id) {
-    //   // 수정 로직
-    //     const updatedNotices = savedNotices.map((notice: Notice) => {
-    //         if(notice.id === id){
-    //             return { id: this.props.id, title, content, date};
-    //         }
-    //         return notice;
-    //     });
-    //   localStorage.setItem('notices', JSON.stringify(updatedNotices));
-    // } else {
-    //   // 추가 로직
-    //   const newId = Date.now().toString(); // 임시 ID 생성
-    //   const noticeToAdd = { ...newNotice, id: newId };
-    //   const updatedNotices = [...savedNotices, noticeToAdd];
-    //   localStorage.setItem('notices', JSON.stringify(updatedNotices));
-    // }
-  
-    // this.props.onNoticeAdded();
   };
 
   insertHtmlContent = () => {
@@ -157,9 +163,9 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
         }
     }
   };
-  handleHtmlInputChange = (e) => {
-    this.setState({ htmlInput: e.target.value });
-  };
+  // handleHtmlInputChange = (e) => {
+  //   this.setState({ htmlInput: e.target.value });
+  // };
 
   applyHtml = () => {
     this.setState({ editorHtml: this.state.htmlInput });
@@ -205,14 +211,14 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
                 theme="snow"
                 style={{ width: '90vw', height: '25vh', marginBottom: '20px' }}
                 value={editorHtml}
-                onChange={(value) => this.setState({ editorHtml: value })}
+                onChange={this.handleEditorChange}
               />
             </div>   
             <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center'}}>
               <text style={styles.titleText}>HTML 입력</text>
               <textarea
                 value={htmlInput}
-                onChange={this.handleHtmlInputChange}
+                onChange={this.handleTextareaChange}
                 placeholder="HTML 코드를 여기에 입력하세요."
                 style={{ width: '90vw', height: '25vh', marginBottom: '20px' }}
               />
@@ -225,10 +231,7 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
                     <div onClick={this.saveNotice}>
                         <h3>저장하기</h3>
                     </div>
-                    <div onClick={()=> this.applyHtml()}>
-                        <h3>HTML 입력</h3>
-                    </div>
-                    {/* <div onClick={()=> this.insertHtmlContent()}>
+                    {/* <div onClick={()=> this.applyHtml()}>
                         <h3>HTML 입력</h3>
                     </div> */}
                     <div onClick={this.props.onCancel}>
