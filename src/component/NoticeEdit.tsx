@@ -65,7 +65,7 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
       htmlInput: '', // 사용자가 입력한 HTML
     };
     this.quillRef = React.createRef();
-    this.updateContentFromTextarea = debounce(this.updateContentFromTextarea, 1500);
+    this.updateContentFromTextarea = debounce(this.updateContentFromTextarea, 5000);
   }
 
   componentDidMount() {
@@ -116,17 +116,19 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
     this.setState({ htmlInput: html });
     this.updateContentFromTextarea(html);
   };
-
-  saveNotice = () => {
+  
+  saveNotice = async() => {
     // const { title, content, date } = this.state;
     const { title, editorHtml: content, date } = this.state;
     const { id, onNoticeAdded } = this.props;
 
+    await this.handleTextareaChange;
     // 제목 또는 내용이 비어 있는지 확인
     if (!title.trim() || !content.trim()) {
         alert('제목과 내용을 모두 입력해주세요.');
         return; // 함수 실행 중단
     }
+
 
     const newNotice = { title, content, date: date || new Date().toISOString() };
 
@@ -142,7 +144,7 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
       localStorage.setItem('notices', JSON.stringify([...savedNotices, noticeToAdd]));
     }
     
-    onNoticeAdded();
+    await onNoticeAdded();
   };
   
 
@@ -163,9 +165,9 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
         }
     }
   };
-  // handleHtmlInputChange = (e) => {
-  //   this.setState({ htmlInput: e.target.value });
-  // };
+  handleHtmlInputChange2 = (e) => {
+    this.setState({ htmlInput: e.target.value });
+  };
 
   applyHtml = () => {
     this.setState({ editorHtml: this.state.htmlInput });
@@ -219,6 +221,7 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
               <textarea
                 value={htmlInput}
                 onChange={this.handleTextareaChange}
+                // onChange={this.handleHtmlInputChange2}
                 placeholder="HTML 코드를 여기에 입력하세요."
                 style={{ width: '90vw', height: '25vh', marginBottom: '20px' }}
               />
