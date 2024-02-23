@@ -1,13 +1,14 @@
 .App {
-  margin-left: 30%;
-  margin-right: 30%;
-  width: 40%;
+  min-width: 70%;
+  height: 100vh;
   text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;  /* 푸터를 하단에 고정시키기 위해 변경 */
   align-items: center;
   background-color: rgb(226, 222, 209);
+  margin: 0 auto; /* 페이지 중앙 정렬을 위해 수정 */ /* 추가: 마진 제거 */
+  padding: 0;/* 추가: 패딩 제거 */
 }
 
 .Header{
@@ -20,32 +21,30 @@
 
 .Mains{  
   width: 100%;
-  max-height: 500px;
+  height: calc(100vh - 80px);
   overflow-y: scroll;
-}
-
-.NoticeLists {
   display: flex;
-  width: 100%;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;  
-}
-.NoticeList {
-  margin-bottom: 1px;  
-  width: 100%;
-  border: 1px solid #282c34;
-  background-color: azure;
 }
 
-.Footer{
+.Footer {
   width: 100%;
-  display: flax;
+  display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
   background-color: rgb(222, 206, 140);
+  position: fixed;
+  /* 고정 위치 설정 */
+  bottom: 0;
+  /* 화면 하단에 위치하도록 설정 */
+  left: 0;
 }
+
 .Footer-btn{
   display: flex;
+  width: 90vw;
   margin: 4px;
   flex-direction: row;
   align-items: center;

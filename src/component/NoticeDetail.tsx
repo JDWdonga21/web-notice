@@ -1,5 +1,5 @@
 // NoticeDetail.tsx
-import React from 'react';
+import React, {CSSProperties} from "react";
 import parse from 'html-react-parser';
 // import DOMPurify from 'dompurify';
 
@@ -42,20 +42,82 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
         this.setState({ ...notice });
     }
   }
+  formatDate = (dateString: string) => {
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // 월은 0부터 시작하므로 1을 더해줍니다.
+        const day = date.getDate().toString().padStart(2, '0');
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+
+        return `${year}.${month}.${day} ${hours}:${minutes}`;
+    }
 
   render() {
     const {title, content, date} = this.state;
     return (
-      <div>
-        <h1>{this.state.title}</h1>
-        <p>{this.state.date}</p>
-        <article dangerouslySetInnerHTML={{ __html : content }} />
-        {/* <button onClick={this.props.onBackToList}>목록으로</button>
-        <button onClick={this.props.onEditNotice}>수정하기</button>
-        <button onClick={() => this.props.onDelete(this.props.id)}>삭제하기</button> */}
+      <div style={styles.body}>
+        <header style={styles.header}>
+          <div style={styles.titleArea}>
+            <text style={styles.titleText}>{this.state.title}</text>
+          </div>
+          <div>
+            <text>{this.formatDate(date)}</text>
+          </div>
+        </header>    
+        <main style={styles.mainArea}>
+          <article style={styles.articleText} dangerouslySetInnerHTML={{ __html : content }} />
+        </main>
+        <footer>
+
+        </footer>
       </div>
     );
   }
 }
-
+const styles: {[key in string]: CSSProperties}= {
+    body: {
+        display: "flex",
+        flexDirection: 'column',
+        width: '90%',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    header: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        padding: '10px',
+        marginLeft: '5%',
+        marginRight: '5%',
+        marginBottom: '5px',
+        width: '94vw',        
+        borderBottom: '2px solid #121417',
+    },
+    titleArea: {
+      marginBottom: '10px'
+    },
+    titleText: {
+        fontWeight: 'bold',
+        fontSize: 24,
+    },
+    mainArea: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+      padding: '10px',
+      marginLeft: '5%',
+      marginRight: '5%',
+      marginBottom: '5px',
+      width: '94vw', 
+      wordWrap: 'break-word',
+      overflowWrap: 'break-word',
+    },
+    articleText: {
+      textAlign: 'start',
+      wordBreak: 'break-word',
+      overflowWrap: 'break-word',
+      whiteSpace: 'pre-wrap'
+    },
+}
 export default NoticeDetail;

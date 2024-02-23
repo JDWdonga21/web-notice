@@ -1,7 +1,8 @@
 // NoticeEdit.tsx
 import React, {
     useMemo, 
-    useRef
+    useRef,
+    CSSProperties
 } from 'react';
 import ReactQuill, {Quill} from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -71,6 +72,13 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
       const noticeToEdit = savedNotices.find((notice: Notice) => notice.id === id);
       if (noticeToEdit) {
         this.setState({ ...noticeToEdit });
+        this.setState({
+          title: noticeToEdit.title,
+          content: noticeToEdit.content, // ReactQuill에 표시될 내용도 업데이트
+          date: noticeToEdit.date,
+          editorHtml: noticeToEdit.content, // 추가된 부분
+          htmlInput: noticeToEdit.content, // HTML 입력란에도 이전 값 표시
+        })
       }
     }
   }
@@ -171,74 +179,107 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
     };
     const { editorHtml, htmlInput } = this.state;
     return (
-        <div>
+        <div style={styles.body}>
+          <header style={styles.header}>
             <form onSubmit={this.handleSubmit}>
-                <label>
-                Title:
+              <text style={styles.titleText}>제목  </text>
+              <label>
                 <input
-                    type="text"
-                    value={this.state.title}
-                    onChange={e => this.setState({ title: e.target.value })}
+                  type="text"
+                  value={this.state.title}
+                  onChange={e => this.setState({ title: e.target.value })}
                 />
-                </label>
-                <label>
-                Content:
-                {/* <textarea
-                    value={this.state.content}
-                    onChange={e => this.setState({ content: e.target.value })}
-                /> */}
-                {/* <ReactQuill
-                  ref={this.quillRef}
-                  theme="snow"
-                  modules={modules}
-                  formats={formats}
-                  value={this.state.content}
-                  onChange={this.handleContentChange}
-                /> */}
-                {/* <textarea
-                  value={htmlInput}
-                  onChange={this.handleHtmlInputChange}
-                  placeholder="HTML 코드를 여기에 입력하세요."
-                  style={{ width: '100%', height: '100px', marginBottom: '20px' }}
-                />
-                <button onClick={this.applyHtml} style={{ marginBottom: '20px' }}>HTML 적용</button>
-                <ReactQuill
-                  theme="snow"
-                  value={editorHtml}
-                  onChange={(value) => this.setState({ editorHtml: value })}
-                /> */}
-                </label>       
-                {/* <button type="submit" style={{display: 'none'}}>저장</button> */}
+              </label>
             </form>
-            <textarea
-                  value={htmlInput}
-                  onChange={this.handleHtmlInputChange}
-                  placeholder="HTML 코드를 여기에 입력하세요."
-                  style={{ width: '100%', height: '100px', marginBottom: '20px' }}
-                />
-                <button onClick={this.applyHtml} style={{ marginBottom: '20px' }}>HTML 적용</button>
-                <ReactQuill
-                  theme="snow"
-                  value={editorHtml}
-                  onChange={(value) => this.setState({ editorHtml: value })}
-                />
+          </header>
+          <main style={styles.mainArea}>   
+            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center'}}>
+              <text style={styles.titleText}>내용</text>
+              <ReactQuill
+                theme="snow"
+                style={{ width: '90vw', height: '25vh', marginBottom: '20px' }}
+                value={editorHtml}
+                onChange={(value) => this.setState({ editorHtml: value })}
+              />
+            </div>   
+            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center'}}>
+              <text style={styles.titleText}>HTML 입력</text>
+              <textarea
+                value={htmlInput}
+                onChange={this.handleHtmlInputChange}
+                placeholder="HTML 코드를 여기에 입력하세요."
+                style={{ width: '90vw', height: '25vh', marginBottom: '20px' }}
+              />
+            </div>
             {/* <button onClick={()=> this.insertHtmlContent()}>HTML</button> */}
-            <div className="Footer">
+          </main>           
+            
+            <footer className="Footer">
                 <div className="Footer-btn">
                     <div onClick={this.saveNotice}>
                         <h3>저장하기</h3>
                     </div>
-                    <div onClick={()=> this.insertHtmlContent()}>
+                    <div onClick={()=> this.applyHtml()}>
                         <h3>HTML 입력</h3>
                     </div>
+                    {/* <div onClick={()=> this.insertHtmlContent()}>
+                        <h3>HTML 입력</h3>
+                    </div> */}
                     <div onClick={this.props.onCancel}>
                         <h3>취소하기</h3>
                     </div>     
                 </div>
-            </div>
+            </footer>
         </div>      
     );
   }
 }
-
+const styles: {[key in string]: CSSProperties}= {
+    body: {
+        display: "flex",
+        flexDirection: 'column',
+        width: '90%',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    header: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        padding: '10px',
+        marginLeft: '5%',
+        marginRight: '5%',
+        marginBottom: '5px',
+        width: '94vw',        
+        borderBottom: '1px solid #121417',
+    },
+    titleArea: {
+      marginBottom: '10px'
+    },
+    titleText: {
+      textAlign: 'start',
+        fontWeight: 'bold',
+        fontSize: 20,
+        marginTop: '10px',
+        marginBottom: '10px'
+    },
+    mainArea: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'space-around',
+      padding: '5px',
+      marginLeft: '5%',
+      marginRight: '5%',
+      width: '94vw', 
+      height: '80vh',
+      overflowY: 'scroll',
+    },
+    articleText: {
+      textAlign: 'start',
+      wordBreak: 'break-word',
+      overflowWrap: 'break-word',
+      whiteSpace: 'pre-wrap'
+    },
+}
 export default NoticeEdit;
