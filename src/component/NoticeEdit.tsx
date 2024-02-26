@@ -54,6 +54,7 @@ const formats = [
 class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
   quillRef: React.RefObject<ReactQuill>;
   //updateContentFromTextarea: any;
+  htmlChangeTime = false;
   constructor(props: NoticeEditProps) {
     super(props);
     this.state = {
@@ -65,7 +66,7 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
       htmlInput: '', // 사용자가 입력한 HTML
     };
     this.quillRef = React.createRef();
-    this.updateContentFromTextarea = debounce(this.updateContentFromTextarea, 2500);
+    this.updateContentFromTextarea = debounce(this.updateContentFromTextarea, 3000);
   }
 
   componentDidMount() {
@@ -108,10 +109,12 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
   // textarea의 내용을 업데이트하고 ReactQuill과 동기화하는 메서드
   updateContentFromTextarea = (html: string) => {
     this.setState({ editorHtml: html, htmlInput: html });
+    this.htmlChangeTime = false;
   };
 
   // textarea의 입력 변경 이벤트 핸들러
   handleTextareaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    this.htmlChangeTime = true;
     const html = event.target.value;
     this.setState({ htmlInput: html });
     this.updateContentFromTextarea(html);
@@ -122,7 +125,11 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
     const { title, editorHtml: content, date } = this.state;
     const { id, onNoticeAdded } = this.props;
 
-    
+    // html 변경 체크
+    if(this.htmlChangeTime === true){
+      alert('HTML 자동 변환 중');
+      return;
+    }
     
     // 제목 또는 내용이 비어 있는지 확인
     if (!title.trim() || !content.trim()) {
