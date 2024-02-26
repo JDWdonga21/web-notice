@@ -35,20 +35,7 @@ class Footer extends React.Component<Footerprops>{
                             <h3>삭제하기</h3>
                         </div>
                     </div>
-                )}                
-                {/* {this.props.appCurrentScreen === 'edit' && (
-                    <div className="Footer-btn">
-                        <div>
-                            <h3>저장하기</h3>
-                        </div>
-                        <div>
-                            <h3>HTML 입력</h3>
-                        </div>
-                        <div onClick={this.props.onCancel}>
-                            <h3>취소하기</h3>
-                        </div>     
-                    </div>
-                )}   */}
+                )}
             </div>
         )
     }

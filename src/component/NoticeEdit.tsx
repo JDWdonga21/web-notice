@@ -65,7 +65,7 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
       htmlInput: '', // 사용자가 입력한 HTML
     };
     this.quillRef = React.createRef();
-    this.updateContentFromTextarea = debounce(this.updateContentFromTextarea, 5000);
+    this.updateContentFromTextarea = debounce(this.updateContentFromTextarea, 2500);
   }
 
   componentDidMount() {
@@ -122,7 +122,8 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
     const { title, editorHtml: content, date } = this.state;
     const { id, onNoticeAdded } = this.props;
 
-    await this.handleTextareaChange;
+    
+    
     // 제목 또는 내용이 비어 있는지 확인
     if (!title.trim() || !content.trim()) {
         alert('제목과 내용을 모두 입력해주세요.');

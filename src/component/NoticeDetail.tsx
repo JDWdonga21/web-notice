@@ -59,7 +59,7 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
       <div style={styles.body}>
         <header style={styles.header}>
           <div style={styles.titleArea}>
-            <text style={styles.titleText}>{this.state.title}</text>
+            <text style={styles.titleText}>{title}</text>
           </div>
           <div>
             <text>{this.formatDate(date)}</text>
