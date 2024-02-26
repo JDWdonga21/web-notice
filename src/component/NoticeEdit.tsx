@@ -180,15 +180,13 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
         // Add other toolbar options as needed
         ['bold', 'italic', 'underline', 'strike'], // toggled buttons
         [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-        [{ 'script': 'sub'}, { 'script': 'super' }], // superscript/subscript
+        // [{ 'script': 'sub'}, { 'script': 'super' }], // superscript/subscript
         [{ 'indent': '-1'}, { 'indent': '+1' }], // outdent/indent
         [{ 'size': ['small', false, 'large', 'huge'] }], // custom dropdown
         [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-        
         ['clean'], // remove formatting button
-
         // Here is the HTML edit button
-        ['code-block'], // This button will allow users to enter HTML tags
+        // ['code-block'], // This button will allow users to enter HTML tags
       ],
     };
     const { editorHtml, htmlInput } = this.state;
@@ -208,23 +206,32 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
           </header>
           <main style={styles.mainArea}>   
             <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center'}}>
-              <text style={styles.titleText}>내용</text>
-              <ReactQuill
-                theme="snow"
-                style={{ width: '90vw', height: '25vh', marginBottom: '20px' }}
-                value={editorHtml}
-                onChange={this.handleEditorChange}
-              />
+              <div style={{display: 'flex'}}>
+                <text style={styles.titleText}>내용</text>
+              </div>
+              <div style={{display: 'flex'}}>
+                <ReactQuill
+                  modules={modules}
+                  theme="snow"
+                  style={{display: 'flex', flexDirection: 'column', width: '90vw', height: '30vh', marginBottom: '20px' }}
+                  value={editorHtml}
+                  onChange={this.handleEditorChange}
+                />
+              </div>
             </div>   
             <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center'}}>
-              <text style={styles.titleText}>HTML 입력</text>
-              <textarea
-                value={htmlInput}
-                onChange={this.handleTextareaChange}
-                // onChange={this.handleHtmlInputChange2}
-                placeholder="HTML 코드를 여기에 입력하세요."
-                style={{ width: '90vw', height: '25vh', marginBottom: '20px' }}
-              />
+              <div style={{display: 'flex'}}>
+                <text style={styles.titleText}>HTML 입력</text>
+              </div>  
+              <div style={{display: 'flex'}}>
+                <textarea
+                  value={htmlInput}
+                  onChange={this.handleTextareaChange}
+                  // onChange={this.handleHtmlInputChange2}
+                  placeholder="HTML 코드를 여기에 입력하세요."
+                  style={{display: 'flex', width: '90vw', height: '30vh', marginBottom: '20px' }}
+                />
+              </div> 
             </div>
             {/* <button onClick={()=> this.insertHtmlContent()}>HTML</button> */}
           </main>           
@@ -268,6 +275,7 @@ const styles: {[key in string]: CSSProperties}= {
       marginBottom: '10px'
     },
     titleText: {
+      display: 'flex',
       textAlign: 'start',
         fontWeight: 'bold',
         fontSize: 20,
@@ -278,15 +286,16 @@ const styles: {[key in string]: CSSProperties}= {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'space-around',
+      // justifyContent: 'space-around',
       padding: '5px',
       marginLeft: '5%',
       marginRight: '5%',
       width: '94vw', 
-      height: '80vh',
+      height: '65vh',
       overflowY: 'scroll',
     },
     articleText: {
+      display: 'flex',
       textAlign: 'start',
       wordBreak: 'break-word',
       overflowWrap: 'break-word',
