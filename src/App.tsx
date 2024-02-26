@@ -15,7 +15,9 @@ type Notice = {
 };
 
 type AppState = {
+  // 현재 표시되는 화면 추적
   currentScreen: 'list' | 'detail' | 'edit';
+  // 조회 중이거나 편집 중인 공지의 ID 저장
   selectedNoticeId?: string;
 };
 
@@ -26,23 +28,23 @@ class App extends React.Component<{}, AppState> {
       currentScreen: 'list'
     };
   }
-
+  //선택한 공지의 상세보기 화면을 표시하도록 상태를 업데이트
   handleNoticeClick = (id: string) => {
     this.setState({ currentScreen: 'detail', selectedNoticeId: id });
   };
-
+  //목록 화면으로 돌아가도록 상태를 업데이트
   handleBackToList = () => {
     this.setState({ currentScreen: 'list', selectedNoticeId: undefined });
   }
-
+  // 편집 화면을 표시하도록 상태를 업데이트
   handleEditNotice = (id : string | undefined) => {
     this.setState({currentScreen: 'edit', selectedNoticeId: id });
   }
-
+  // 새 공지 작성을 위한 편집 화면을 표시하도록 상태를 업데이트
   handleAddNotice = () => {
     this.setState({ currentScreen: 'edit', selectedNoticeId: undefined });
   };
-
+  // 로컬 스토리지에서 공지를 삭제하고 목록 화면으로 돌아가도록 함
   handleDeleteNotice = (id: string) => {
     if(window.confirm('삭제하시겠습니까?')){
       const savedNotices = JSON.parse(localStorage.getItem('notices') || '[]');
@@ -53,7 +55,7 @@ class App extends React.Component<{}, AppState> {
     //삭제 후 목록 화면으로
     this.setState({currentScreen: 'list'});
   }
-
+  //공지가 추가되거나 편집된 후 목록 화면으로 돌아가도록 상태를 업데이트
   handleNoticeAdded = () => {
     this.setState({ currentScreen : 'list' });
   }
@@ -65,13 +67,14 @@ class App extends React.Component<{}, AppState> {
       <div className='App'>
         <Header />        
         <main className='Mains'>
+          {/* 리스트 화면 */}
           {currentScreen === 'list' && (
             <div>
               <NoticeList onNoticeClick={this.handleNoticeClick} />
               {/* <button onClick={this.handleAddNotice}>공지사항 추가</button> */}
             </div>
           )}
-
+          {/* 상세 화면 */}
           {currentScreen === 'detail' && selectedNoticeId && (
             <NoticeDetail 
               id={selectedNoticeId} 
@@ -80,7 +83,7 @@ class App extends React.Component<{}, AppState> {
               onDelete={this.handleDeleteNotice}
             />
           )}
-
+          {/* 추가,편집 화면 */}
           {currentScreen === 'edit' && (
             <NoticeEdit 
               id={selectedNoticeId}

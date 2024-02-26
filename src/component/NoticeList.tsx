@@ -7,32 +7,34 @@ type NoticeListprops = {
 }
 
 type Notice = {
-    id: string,
-    title: string,
-    content: string,
-    date: string
+    id: string, //공지 식별자
+    title: string, //공지 제목
+    content: string, //공지 내용
+    date: string // 날짜 문자열
 };
 
 type NoticeListState = {
-    notices: Notice[];
+    notices: Notice[]; //공지 객체의 배열
 }
 
 class NoticeList extends React.Component<NoticeListprops, NoticeListState>{
     constructor(props: NoticeListprops){
         super(props)
         this.state = {
+            // notices 빈 배열로 초기화
             notices: []
         }
     };
     
     componentDidMount(): void {
-        // 데이터 가져오기
+        // 로컬 스토리지에서 공지 데이터 가져오기
         const savedNotices = localStorage.getItem('notices');
+        // 저장된 공지 값이 있으면 notices 상태를 업데이트
         if(savedNotices){
             this.setState({notices: JSON.parse(savedNotices)});
         }
     }
-
+    //날짜 문자열을 더 읽기 쉬운 형식으로 변환
     formatDate = (dateString: string) => {
         const date = new Date(dateString);
         const year = date.getFullYear();
@@ -51,7 +53,9 @@ class NoticeList extends React.Component<NoticeListprops, NoticeListState>{
                     
                 </header>
                 <main>
+                    {/* **공지 표시:** `main` 섹션 내부에서 `this.state.notices` 배열을 반복 */}
                     {this.state.notices.map(notice => (
+                        // `onClick` 핸들러를 설정하여 `notice.id`와 함께 `onNoticeClick` prop 함수 (부모 `App` 컴포넌트에서 전달됨)를 호출
                         <div style={styles.noticeList} key={notice.id} onClick={() => this.props.onNoticeClick(notice.id)}>
                             <div style={styles.titleArea}>
                                 <text style={styles.titleText}>{notice.title}</text>
