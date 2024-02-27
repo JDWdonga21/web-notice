@@ -7,7 +7,7 @@ import React, {
 import ReactQuill, {Quill} from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import debounce from 'lodash.debounce';
-
+//공지 객체의 구조 정의
 type Notice = {
     id: string,
     title: string,
@@ -16,8 +16,8 @@ type Notice = {
 };
 
 type NoticeEditProps = {
-    onNoticeAdded: () => void,
-    onCancel: () => void,
+    onNoticeAdded: () => void, //새로 작성, 업데이트 된 공지에 대해 부모 컴포넌트에 신호를 보내는 콜백 함수
+    onCancel: () => void, //저장하지 않고 공지 목록으로 돌아가는 콜백 함수
     id?: string; // 수정 시에는 id가 제공됩니다.
 };
 
@@ -26,8 +26,8 @@ type NoticeEditState = {
   content: string;
   date: string;
 
-  editorHtml: string; // 에디터에 표시될 HTML
-  htmlInput: string; // 사용자가 입력한 HTML
+  editorHtml: string; // 에디터에 표시될 HTML (ReactQuill)
+  htmlInput: string; // 사용자가 입력한 HTML (textarea)
 };
 
 const formats = [
@@ -68,7 +68,7 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
     this.quillRef = React.createRef();
     this.updateContentFromTextarea = debounce(this.updateContentFromTextarea, 3000);
   }
-
+  // `id` prop이 제공된 경우 (편집 시) `localStorage`에서 기존 공지 데이터를 로드
   componentDidMount() {
     const { id } = this.props;
     if (id) {
@@ -86,11 +86,15 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
       }
     }
   }
+  /**
+   *  (ReactQuill 외부에서) 텍스트 편집기 내용이 변경될 때 `content` 상태 업데이트
+      - 일반적으로 다른 방식으로 외부 콘텐츠를 추가할 때 수행 
+   */
   handleContentChange = (content: string) => {
     this.setState({ content });
   };
 
-  // ReactQuill의 변경사항을 처리하는 핸들러
+  // ReactQuill 편집기 내용이 변경될 때 `editorHtml`과 `htmlInput` 모두 업데이트
   handleEditorChange = (content: string) => {
     this.setState({ editorHtml: content, htmlInput: content }); // ReactQuill 변경 시 htmlInput도 업데이트
   };
@@ -101,6 +105,12 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
   //   this.setState({ htmlInput: htmlContent, editorHtml: htmlContent }); // textarea 변경 시 editorHtml도 업데이트
   // };
 
+  /**
+   * 
+    - `handleHtmlInputChange`: textarea 내용이 변경될 때 `htmlInput` 상태 업데이트
+    - `updateContentFromTextarea` (debounced): `editorHtml` 내용 (ReactQuill)을 원시 HTML textarea (`htmlInput`)의 변경 사항과 동기화
+   * @param htmlContent 
+   */
   // 입력이 실제로 처리되는 함수
   handleHtmlInputChange = (htmlContent) => {
     this.setState({ htmlInput: htmlContent, editorHtml: htmlContent });
@@ -113,13 +123,21 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
   };
 
   // textarea의 입력 변경 이벤트 핸들러
+  //`handleHtmlInputChange`를 먼저 호출하여 상태를 업데이트한 다음 
+  //`updateContentFromTextarea`를 사용하여 'debounced' 동기화를 트리거
   handleTextareaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     this.htmlChangeTime = true;
     const html = event.target.value;
     this.setState({ htmlInput: html });
     this.updateContentFromTextarea(html);
   };
-  
+  /**
+    - 유효성 검사 수행 (빈 제목 또는 내용 확인)
+    - `newNotice` 객체 생성
+    - `id`가 제공된 여부에 따라 (편집 또는 새 공지) `localStorage` 업데이트
+    - `onNoticeAdded` 콜백 호출하여 부모 컴포넌트에 신호
+   * @returns 
+   */
   saveNotice = async() => {
     // const { title, content, date } = this.state;
     const { title, editorHtml: content, date } = this.state;
@@ -155,32 +173,44 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
     await onNoticeAdded();
   };
   
-
+  //기본 양식 제출 동작 방지
+  //`saveNotice`를 호출하여 저장 논리 처리
   handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     this.saveNotice();
   };
+  //사용자에게 HTML 입력을 요구
+  //제공된 HTML 내용을 현재 커서 위치에 ReactQuill 편집기에 삽입
+  // insertHtmlContent = () => {
+  //   const htmlContent = prompt("HTML 입력");
+  //   if(!htmlContent) return;
 
-  insertHtmlContent = () => {
-    const htmlContent = prompt("HTML 입력");
-    if(!htmlContent) return;
+  //   const quillInstance = this.quillRef.current?.getEditor();
+  //   if(quillInstance){
+  //       const range = quillInstance.getSelection();
+  //       if(range){
+  //           quillInstance.clipboard.dangerouslyPasteHTML(range.index, htmlContent);
+  //       }
+  //   }
+  // };
+  // handleHtmlInputChange2 = (e) => {
+  //   this.setState({ htmlInput: e.target.value });
+  // };
 
-    const quillInstance = this.quillRef.current?.getEditor();
-    if(quillInstance){
-        const range = quillInstance.getSelection();
-        if(range){
-            quillInstance.clipboard.dangerouslyPasteHTML(range.index, htmlContent);
-        }
-    }
-  };
-  handleHtmlInputChange2 = (e) => {
-    this.setState({ htmlInput: e.target.value });
-  };
-
-  applyHtml = () => {
-    this.setState({ editorHtml: this.state.htmlInput });
-  };
-
+  // applyHtml = () => {
+  //   this.setState({ editorHtml: this.state.htmlInput });
+  // };
+  /**
+   * **구조:** 헤더, 본문, 바닥글 섹션이 있는 `div`
+    - **헤더:** 공지 제목을 위한 입력 필드가 있는 양식 포함
+    - **본문:**
+        - **ReactQuill 편집기:** 편집 영역 표시
+        - **HTML 입력 textarea:** 직접 HTML 입력 허용
+    **핵심 요약**
+    - `NoticeEdit` 컴포넌트는 ReactQuill 리치 텍스트 편집기와 원시 HTML textarea를 결합하여 공지 편집 시 유연성을 제공합니다.
+    - 컴포넌트는 리치 텍스트 편집기의 상태
+   * @returns 
+   */
   render() {
     // ReactQuill 툴바 설정
     const modules = {
