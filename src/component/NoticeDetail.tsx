@@ -59,8 +59,6 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
     const savedNotices = JSON.parse(localStorage.getItem('notices') || '[]');
     const notice = savedNotices.find((notice: Notice) => notice.id === id);
     if (notice) {       
-      savedNotices[notice].otherInfo.noticeid += 1;   
-      localStorage.setItem('notices', JSON.stringify(savedNotices));
       this.setState({ ...notice });
     }
   }
@@ -73,21 +71,6 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
     const hours = date.getHours().toString().padStart(2, '0');
     const minutes = date.getMinutes().toString().padStart(2, '0')
     return `${year}.${month}.${day} ${hours}:${minutes}`;
-  }
-  handleAddComment = (comment: {commentTitle: string, commentContent: string}) => {
-    const savedNotices = JSON.parse(localStorage.getItem('notices') || '[]');
-    const noticeIndex = savedNotices.findIndex((notice: Notice) => notice.id === this.props.id);
-    if(noticeIndex !== -1){
-      const newComment = {
-        commentId: new Date().toISOString(),
-        commentTitle: comment.commentTitle,
-        commentContent: comment.commentContent,
-        commentDate: new Date().toLocaleDateString()
-      };
-      savedNotices[noticeIndex].otherInfo.comments.push(newComment);
-      localStorage.setItem('notices', JSON.stringify(savedNotices));
-      this.setState({ ...savedNotices });
-    }
   }
   /**
    *  **구조:** 헤더, 본문 내용, (잠재적으로) 바닥글 섹션을 가진 `div`를 렌더링합니다. 스타일링은 `styles` 객체에서 정의됩니다.
