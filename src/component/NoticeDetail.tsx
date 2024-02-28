@@ -42,7 +42,7 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
     this.state = {
       title: '',
       content: '',
-      date: ''
+      date: '',
     };
   }
 
@@ -58,22 +58,37 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
     const { id } = this.props;
     const savedNotices = JSON.parse(localStorage.getItem('notices') || '[]');
     const notice = savedNotices.find((notice: Notice) => notice.id === id);
-    if (notice) {
-        this.setState({ ...notice });
+    if (notice) {       
+      savedNotices[notice].otherInfo.noticeid += 1;   
+      localStorage.setItem('notices', JSON.stringify(savedNotices));
+      this.setState({ ...notice });
     }
   }
   //날짜 문자열을 사람이 읽을 수 있는 형식으로 변환
   formatDate = (dateString: string) => {
-        const date = new Date(dateString);
-        const year = date.getFullYear();
-        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // 월은 0부터 시작하므로 1을 더해줍니다.
-        const day = date.getDate().toString().padStart(2, '0');
-        const hours = date.getHours().toString().padStart(2, '0');
-        const minutes = date.getMinutes().toString().padStart(2, '0');
-
-        return `${year}.${month}.${day} ${hours}:${minutes}`;
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // 월은 0부터 시작하므로 1을 더해줍니다.
+    const day = date.getDate().toString().padStart(2, '0');
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0')
+    return `${year}.${month}.${day} ${hours}:${minutes}`;
+  }
+  handleAddComment = (comment: {commentTitle: string, commentContent: string}) => {
+    const savedNotices = JSON.parse(localStorage.getItem('notices') || '[]');
+    const noticeIndex = savedNotices.findIndex((notice: Notice) => notice.id === this.props.id);
+    if(noticeIndex !== -1){
+      const newComment = {
+        commentId: new Date().toISOString(),
+        commentTitle: comment.commentTitle,
+        commentContent: comment.commentContent,
+        commentDate: new Date().toLocaleDateString()
+      };
+      savedNotices[noticeIndex].otherInfo.comments.push(newComment);
+      localStorage.setItem('notices', JSON.stringify(savedNotices));
+      this.setState({ ...savedNotices });
     }
-
+  }
   /**
    *  **구조:** 헤더, 본문 내용, (잠재적으로) 바닥글 섹션을 가진 `div`를 렌더링합니다. 스타일링은 `styles` 객체에서 정의됩니다.
     - **헤더:** 공지 제목과 형식화된 날짜를 표시합니다.
