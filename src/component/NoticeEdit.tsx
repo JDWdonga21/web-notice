@@ -314,52 +314,52 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
   }
 }
 const styles: {[key in string]: CSSProperties}= {
-    body: {
-        display: "flex",
-        flexDirection: 'column',
-        width: '90%',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    header: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-        padding: '10px',
-        marginLeft: '5%',
-        marginRight: '5%',
-        width: '94vw',        
-        borderBottom: '1px solid #121417',
-    },
-    titleArea: {
-      marginBottom: '10px'
-    },
-    titleText: {
-      display: 'flex',
-      textAlign: 'start',
-        fontWeight: 'bold',
-        fontSize: 20,
-        marginTop: '10px',
-        marginBottom: '10px'
-    },
-    mainArea: {
+  body: {
+      display: "flex",
+      flexDirection: 'column',
+      width: '90%',
+      alignItems: 'center',
+      justifyContent: 'center',
+  },
+  header: {
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'center',
-      // justifyContent: 'space-around',
-      padding: '5px',
+      alignItems: 'flex-start',
+      padding: '10px',
       marginLeft: '5%',
       marginRight: '5%',
-      width: '94vw', 
-      height: '65vh',
-      overflowY: 'scroll',
-    },
-    articleText: {
-      display: 'flex',
-      textAlign: 'start',
-      wordBreak: 'break-word',
-      overflowWrap: 'break-word',
-      whiteSpace: 'pre-wrap'
-    },
+      width: '94vw',        
+      borderBottom: '1px solid #121417',
+  },
+  titleArea: {
+    marginBottom: '10px'
+  },
+  titleText: {
+    display: 'flex',
+    textAlign: 'start',
+      fontWeight: 'bold',
+      fontSize: 20,
+      marginTop: '10px',
+      marginBottom: '10px'
+  },
+  mainArea: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    // justifyContent: 'space-around',
+    padding: '5px',
+    marginLeft: '5%',
+    marginRight: '5%',
+    width: '94vw', 
+    height: '65vh',
+    overflowY: 'scroll',
+  },
+  articleText: {
+    display: 'flex',
+    textAlign: 'start',
+    wordBreak: 'break-word',
+    overflowWrap: 'break-word',
+    whiteSpace: 'pre-wrap'
+  },
 }
 export default NoticeEdit;

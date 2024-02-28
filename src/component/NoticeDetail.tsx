@@ -1,6 +1,6 @@
 // NoticeDetail.tsx
 import React, {CSSProperties} from "react";
-import parse from 'html-react-parser';
+//import parse from 'html-react-parser';
 // import DOMPurify from 'dompurify';
 
 type Notice = {
@@ -238,65 +238,66 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
   }
 }
 const styles: {[key in string]: CSSProperties}= {
-    body: {
-      display: "flex",
-      flexDirection: 'column',
-      width: '90%',
-      alignItems: 'center',
-      justifyContent: 'flex-start', // 컨텐츠가 시작 부분에서 정렬되도록 조정
-      minHeight: '80vh', // 뷰포트의 높이에 맞게 조정
-      paddingBottom: '20px', // 하단에 여유 공간 추가
-    },
-    header: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-        padding: '10px',
-        marginLeft: '5%',
-        marginRight: '5%',
-        marginBottom: '5px',
-        width: '94vw',        
-        borderBottom: '2px solid #121417',
-    },
-    titleArea: {
-      marginBottom: '10px'
-    },
-    titleText: {
-        fontWeight: 'bold',
-        fontSize: 24,
-    },
-    mainArea: {
-      display: 'flex',
-      flex: '1',
-      overflowY: 'auto', // 내용이 넘칠 경우 스크롤 가능
-      flexDirection: 'column',
-      height: '100%',
-      // height: 'calc(50vh - 80px)',
-      alignItems: 'flex-start',
-      padding: '10px',
-      marginLeft: '5%',
-      marginRight: '5%',
-      marginBottom: '5px',
-      width: '94vw', 
-      wordWrap: 'break-word',
-      overflowWrap: 'break-word',
-    },
-    articleText: {
-      textAlign: 'start',
-      wordBreak: 'break-word',
-      overflowWrap: 'break-word',
-      whiteSpace: 'pre-wrap'
-    },
-    footer: {
-      borderTop: '1px solid #ccc',
-      padding: '10px',
-      width: '100%', // 부모 컨테이너의 전체 너비 사용
-      background: '#f8f9fa', // 배경색 설정
-      boxSizing: 'border-box', // 패딩이 너비에 포함되도록 설정
-      overflowY: 'auto', // 내용이 넘칠 경우 스크롤 가능
-    },
-    // 
-    commentForm: {
+  body: {
+    display: "flex",
+    flexDirection: 'column',
+    width: '90%',
+    alignItems: 'center',
+    justifyContent: 'flex-start', // 컨텐츠가 시작 부분에서 정렬되도록 조정
+    minHeight: '80vh', // 뷰포트의 높이에 맞게 조정
+    paddingBottom: '20px', // 하단에 여유 공간 추가
+  },
+  header: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    padding: '10px',
+    marginLeft: '5%',
+    marginRight: '5%',
+    marginBottom: '5px',
+    width: '94vw',        
+    borderBottom: '2px solid #121417',
+  },
+  titleArea: {
+    marginBottom: '10px'
+  },
+  titleText: {
+      fontWeight: 'bold',
+      fontSize: 24,
+  },
+  mainArea: {
+    display: 'flex',
+    flex: '1',
+    overflowY: 'auto', // 내용이 넘칠 경우 스크롤 가능
+    flexDirection: 'column',
+    height: '100%',
+    // height: 'calc(50vh - 80px)',
+    alignItems: 'flex-start',
+    padding: '10px',
+    marginLeft: '5%',
+    marginRight: '5%',
+    marginBottom: '5px',
+    width: '94vw', 
+    wordWrap: 'break-word',
+    overflowWrap: 'break-word',
+  },
+  articleText: {
+    textAlign: 'start',
+    wordBreak: 'break-word',
+    overflowWrap: 'break-word',
+    whiteSpace: 'pre-wrap'
+  },
+  footer: {
+    marginTop: 20,
+    marginBottom: 20,
+    borderTop: '1px solid #ccc',
+    padding: '10px',
+    width: '100%', // 부모 컨테이너의 전체 너비 사용
+    background: '#f8f9fa', // 배경색 설정
+    boxSizing: 'border-box', // 패딩이 너비에 포함되도록 설정
+    overflowY: 'auto', // 내용이 넘칠 경우 스크롤 가능
+  },
+  commentForm: {
     display: 'flex',
     flexDirection: 'column',
     gap: '10px',
