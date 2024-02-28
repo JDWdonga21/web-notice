@@ -218,17 +218,16 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
         </main>
         <footer style={styles.footer}>
           {comments.map(comment => (
-            // `onClick` 핸들러를 설정하여 `notice.id`와 함께 `onNoticeClick` prop 함수 (부모 `App` 컴포넌트에서 전달됨)를 호출
-            <div style={{}} key={comment.commentId}>
-              <div style={{}}>
-                  <text style={{}}>{comment.commentTitle}</text>
-              </div>     
-              <div style={{}}>
-                  <text>{comment.commentContent}</text>
-              </div>                        
-              <div style={{}}>
-                  <text>{this.formatDate(comment.commentDate)}</text>
-              </div>                            
+            <div style={styles.commentItem} key={comment.commentId}>
+              <div style={styles.commentTitle}>
+                <text>{comment.commentTitle}</text>
+              </div>
+              <div style={styles.commentContent}>
+                <text>{comment.commentContent}</text>
+              </div>
+              <div style={styles.commentDate}>
+                <text>{this.formatDate(comment.commentDate)}</text>
+              </div>
             </div>
           ))}
           {this.renderCommentForm()}
@@ -288,8 +287,7 @@ const styles: {[key in string]: CSSProperties}= {
     whiteSpace: 'pre-wrap'
   },
   footer: {
-    marginTop: 20,
-    marginBottom: 20,
+    marginBottom: 5,
     borderTop: '1px solid #ccc',
     padding: '10px',
     width: '100%', // 부모 컨테이너의 전체 너비 사용
@@ -321,6 +319,26 @@ const styles: {[key in string]: CSSProperties}= {
     border: 'none',
     borderRadius: '4px',
     cursor: 'pointer',
+  },
+  commentItem: {
+    background: '#f8f9fa', // 댓글 배경색
+    border: '1px solid #dee2e6', // 댓글 테두리
+    borderRadius: '8px', // 둥근 모서리
+    padding: '10px', // 내부 여백
+    marginBottom: '10px', // 댓글 간 간격
+  },
+  commentTitle: {
+    fontWeight: 'bold', // 댓글 제목 굵기
+    fontSize: '16px', // 폰트 크기
+    marginBottom: '5px', // 제목과 내용 사이의 간격
+  },
+  commentContent: {
+    fontSize: '14px', // 내용 폰트 크기
+    marginBottom: '5px', // 내용과 날짜 사이의 간격
+  },
+  commentDate: {
+    fontSize: '12px', // 날짜 폰트 크기
+    color: '#6c757d', // 날짜 폰트 색상
   },
 }
 export default NoticeDetail;
