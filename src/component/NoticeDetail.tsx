@@ -207,31 +207,31 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
       <div style={styles.body}>
         <header style={styles.header}>
           <div style={styles.titleArea}>
-            <text style={styles.titleText}>{title} {noticeid}</text>
+            <text style={styles.titleText}>{title}</text>
           </div>
           <div>
-            <text>{this.formatDate(date)}</text>
+            <text>{this.formatDate(date)} 조회수: {noticeid}</text>
           </div>
         </header>    
         <main style={styles.mainArea}>
           <article style={styles.articleText} dangerouslySetInnerHTML={{ __html : content }} />
         </main>
-        <footer>
+        <footer style={styles.footer}>
           {comments.map(comment => (
-                        // `onClick` 핸들러를 설정하여 `notice.id`와 함께 `onNoticeClick` prop 함수 (부모 `App` 컴포넌트에서 전달됨)를 호출
-                        <div style={{}} key={comment.commentId}>
-                            <div style={{}}>
-                                <text style={{}}>{comment.commentTitle}</text>
-                            </div>     
-                            <div style={{}}>
-                                <text>{comment.commentContent}</text>
-                            </div>                        
-                            <div style={{}}>
-                                <text>{this.formatDate(comment.commentDate)}</text>
-                            </div>                            
-                        </div>
-                    ))}
-                    {this.renderCommentForm()}
+            // `onClick` 핸들러를 설정하여 `notice.id`와 함께 `onNoticeClick` prop 함수 (부모 `App` 컴포넌트에서 전달됨)를 호출
+            <div style={{}} key={comment.commentId}>
+              <div style={{}}>
+                  <text style={{}}>{comment.commentTitle}</text>
+              </div>     
+              <div style={{}}>
+                  <text>{comment.commentContent}</text>
+              </div>                        
+              <div style={{}}>
+                  <text>{this.formatDate(comment.commentDate)}</text>
+              </div>                            
+            </div>
+          ))}
+          {this.renderCommentForm()}
         </footer>
       </div>
     );
@@ -239,11 +239,13 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
 }
 const styles: {[key in string]: CSSProperties}= {
     body: {
-        display: "flex",
-        flexDirection: 'column',
-        width: '90%',
-        alignItems: 'center',
-        justifyContent: 'center',
+      display: "flex",
+      flexDirection: 'column',
+      width: '90%',
+      alignItems: 'center',
+      justifyContent: 'flex-start', // 컨텐츠가 시작 부분에서 정렬되도록 조정
+      minHeight: '80vh', // 뷰포트의 높이에 맞게 조정
+      paddingBottom: '20px', // 하단에 여유 공간 추가
     },
     header: {
         display: 'flex',
@@ -265,7 +267,11 @@ const styles: {[key in string]: CSSProperties}= {
     },
     mainArea: {
       display: 'flex',
+      flex: '1',
+      overflowY: 'auto', // 내용이 넘칠 경우 스크롤 가능
       flexDirection: 'column',
+      height: '100%',
+      // height: 'calc(50vh - 80px)',
       alignItems: 'flex-start',
       padding: '10px',
       marginLeft: '5%',
@@ -281,5 +287,39 @@ const styles: {[key in string]: CSSProperties}= {
       overflowWrap: 'break-word',
       whiteSpace: 'pre-wrap'
     },
+    footer: {
+      borderTop: '1px solid #ccc',
+      padding: '10px',
+      width: '100%', // 부모 컨테이너의 전체 너비 사용
+      background: '#f8f9fa', // 배경색 설정
+      boxSizing: 'border-box', // 패딩이 너비에 포함되도록 설정
+      overflowY: 'auto', // 내용이 넘칠 경우 스크롤 가능
+    },
+    // 
+    commentForm: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
+    marginBottom: '20px',
+  },
+  input: {
+    padding: '10px',
+    borderRadius: '4px',
+    border: '1px solid #ccc',
+  },
+  textarea: {
+    padding: '10px',
+    borderRadius: '4px',
+    border: '1px solid #ccc',
+    minHeight: '100px',
+  },
+  submitButton: {
+    padding: '10px 20px',
+    background: '#007bff',
+    color: 'white',
+    border: 'none',
+    borderRadius: '4px',
+    cursor: 'pointer',
+  },
 }
 export default NoticeDetail;
