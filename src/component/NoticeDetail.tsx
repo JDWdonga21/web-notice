@@ -34,6 +34,11 @@ type NoticeDetailState = {
   title: string; //공지 제목
   content: string; //공지 내용
   date: string; //공지 날짜 문자열
+  noticeid: number; //조회수
+  comments: comment[]; //댓글
+  //
+  commentTitle: string;
+  commentContent: string;
 };
 
 class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState> {
@@ -43,6 +48,11 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
       title: '',
       content: '',
       date: '',
+      noticeid: 0, //조회수
+      comments: [], //댓글
+      //
+      commentTitle: '',
+      commentContent: '',
     };
   }
 
@@ -57,9 +67,22 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
     // ID에 해당하는 공지사항 정보를 로딩합니다.
     const { id } = this.props;
     const savedNotices = JSON.parse(localStorage.getItem('notices') || '[]');
-    const notice = savedNotices.find((notice: Notice) => notice.id === id);
-    if (notice) {       
-      this.setState({ ...notice });
+    // const notice = savedNotices.find((notice: Notice) => notice.id === id);
+    // if (notice) {       
+    //   this.setState({ ...notice });
+    // }
+    const noticeIndex = savedNotices.findIndex((notice: Notice) => notice.id === id);
+    console.log(noticeIndex)
+    if (noticeIndex !== -1) {
+      savedNotices[noticeIndex].otherInfo.noticeid += 1;  
+      console.log("조회수 : " + savedNotices[noticeIndex].otherInfo.noticeid) 
+      localStorage.setItem('notices', JSON.stringify(savedNotices));
+      this.setState({ ...savedNotices[noticeIndex] });
+      console.log("댓글 : " + savedNotices[noticeIndex].otherInfo)
+      this.setState({ 
+        noticeid: savedNotices[noticeIndex].otherInfo.noticeid, //조회수
+        comments: savedNotices[noticeIndex].otherInfo.comments, //댓글
+      })
     }
   }
   //날짜 문자열을 사람이 읽을 수 있는 형식으로 변환
@@ -73,6 +96,102 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
     return `${year}.${month}.${day} ${hours}:${minutes}`;
   }
   /**
+   * 
+   */
+  // 댓글 입력 핸들러
+  // handleCommentChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  //   this.setState({
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
+  handleCommentChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const name = e.target.name as keyof NoticeDetailState;
+    const value = e.target.value;
+
+    this.setState(prevState => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+
+  // 댓글 제출 핸들러
+  handleCommentSubmit = () => {
+    const { commentTitle, commentContent } = this.state;
+    if (!commentTitle.trim() || !commentContent.trim()) {
+      alert('댓글 제목과 내용을 입력해주세요.');
+      return;
+    }
+    // 현재 날짜와 시간 생성
+    const now = new Date();
+    const formattedDate = this.formatDate(now.toISOString());
+
+    const newComment = {
+      commentId: now.toISOString(),
+      commentTitle,
+      commentContent,
+      commentDate: formattedDate, // 포맷팅된 날짜 사용
+    };
+    this.handleAddComment(newComment);
+    this.setState({ commentTitle: '', commentContent: '' }); // 입력 필드 초기화
+  };
+  // 댓글 추가 메서드
+  handleAddComment = (newComment: { commentTitle: string; commentContent: string }) => {
+    const { comments } = this.state;
+    const savedNotices = JSON.parse(localStorage.getItem('notices') || '[]');
+    const noticeIndex = savedNotices.findIndex((notice: Notice) => notice.id === this.props.id);
+
+    if (noticeIndex !== -1) {
+      // 새 댓글 객체 생성
+      const commentToAdd = {
+        commentId: Date.now().toString(), // 예시로 현재 시간을 ID로 사용
+        commentTitle: newComment.commentTitle,
+        commentContent: newComment.commentContent,
+        commentDate: new Date().toISOString(), // 현재 날짜 및 시간
+      };
+
+      // 현재 공지의 댓글 배열에 새 댓글 추가
+      const updatedComments = [...comments, commentToAdd];
+      savedNotices[noticeIndex].otherInfo.comments = updatedComments; // localStorage의 댓글 배열 업데이트
+
+      // localStorage 업데이트
+      localStorage.setItem('notices', JSON.stringify(savedNotices));
+
+      // 컴포넌트 상태 업데이트
+      this.setState({ comments: updatedComments });
+      savedNotices[noticeIndex].otherInfo.comments = updatedComments;
+      localStorage.setItem('notices', JSON.stringify(savedNotices));
+  }
+};
+
+
+  // 댓글 입력 폼 렌더링
+  renderCommentForm() {
+    return (
+      <div style={styles.commentForm}>
+        <input
+          style={styles.input}
+          type="text"
+          name="commentTitle"
+          placeholder="댓글 제목"
+          value={this.state.commentTitle}
+          onChange={this.handleCommentChange}
+        />
+        <textarea
+          style={styles.textarea}
+          name="commentContent"
+          placeholder="댓글 내용"
+          value={this.state.commentContent}
+          onChange={this.handleCommentChange}
+        />
+        <button style={styles.submitButton} onClick={this.handleCommentSubmit}>
+          댓글 달기
+        </button>
+      </div>
+    );
+  }
+
+  /**
    *  **구조:** 헤더, 본문 내용, (잠재적으로) 바닥글 섹션을 가진 `div`를 렌더링합니다. 스타일링은 `styles` 객체에서 정의됩니다.
     - **헤더:** 공지 제목과 형식화된 날짜를 표시합니다.
     - **본문 내용:**
@@ -83,12 +202,12 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
     **보안 참고:** `dangerouslySetInnerHTML`을 정제 없이 사용하는 것은 위험할 수 있습니다. 프로덕션 환경에서는 안전한 HTML 렌더링 라이브러리를 사용하거나 자체 정제 로직을 구현하는 것을 고려하십시오.
    */
   render() {
-    const {title, content, date} = this.state;
+    const {title, content, date, noticeid, comments} = this.state;
     return (
       <div style={styles.body}>
         <header style={styles.header}>
           <div style={styles.titleArea}>
-            <text style={styles.titleText}>{title}</text>
+            <text style={styles.titleText}>{title} {noticeid}</text>
           </div>
           <div>
             <text>{this.formatDate(date)}</text>
@@ -98,7 +217,21 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
           <article style={styles.articleText} dangerouslySetInnerHTML={{ __html : content }} />
         </main>
         <footer>
-
+          {comments.map(comment => (
+                        // `onClick` 핸들러를 설정하여 `notice.id`와 함께 `onNoticeClick` prop 함수 (부모 `App` 컴포넌트에서 전달됨)를 호출
+                        <div style={{}} key={comment.commentId}>
+                            <div style={{}}>
+                                <text style={{}}>{comment.commentTitle}</text>
+                            </div>     
+                            <div style={{}}>
+                                <text>{comment.commentContent}</text>
+                            </div>                        
+                            <div style={{}}>
+                                <text>{this.formatDate(comment.commentDate)}</text>
+                            </div>                            
+                        </div>
+                    ))}
+                    {this.renderCommentForm()}
         </footer>
       </div>
     );
