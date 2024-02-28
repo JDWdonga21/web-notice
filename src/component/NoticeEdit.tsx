@@ -151,7 +151,6 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
    * @returns 
    */
   saveNotice = async() => {
-    // const { title, content, date } = this.state;
     const { title, editorHtml: content, date } = this.state;
     const { id, onNoticeAdded } = this.props;
 
@@ -166,9 +165,18 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
         alert('제목과 내용을 모두 입력해주세요.');
         return; // 함수 실행 중단
     }
+    const initialOtherInfo = {
+      _id: Date.now().toString(),
+      noticeid: 0,
+      comments: [],
+    }
 
-
-    const newNotice = { title, content, date: date || new Date().toISOString() };
+    const newNotice = { 
+      title, 
+      content, 
+      date: date || new Date().toISOString(),
+      otherInfo: initialOtherInfo
+    };
 
     const savedNotices = JSON.parse(localStorage.getItem('notices') || '[]');
     if (id) {
@@ -177,6 +185,8 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
       });
       localStorage.setItem('notices', JSON.stringify(updatedNotices));
     } else {
+      
+
       const newId = Date.now().toString(); // 임시 ID 생성
       const noticeToAdd = { ...newNotice, id: newId };
       localStorage.setItem('notices', JSON.stringify([...savedNotices, noticeToAdd]));
