@@ -9,12 +9,24 @@ import 'react-quill/dist/quill.snow.css';
 import debounce from 'lodash.debounce';
 //공지 객체의 구조 정의
 type Notice = {
-    id: string,
-    title: string,
-    content: string,
-    date: string
+    id: string, //공지 식별자
+    title: string, //공지 제목
+    content: string, //공지 내용
+    date: string, //날짜 문자열
+    otherInfo: NoticeView, // 조회수 등 공지의 세부값
 };
-
+type NoticeView = {
+  _id: string, 
+  noticeid: number, //조회수
+  comments: comment[], //댓글 
+};
+//댓글
+type comment = {
+  commentId: string, //댓글 아이디
+  commentTitle: string, //댓글 제목
+  commentContent: string, //댓글 내용
+  commentDate: string, //댓글 작성 날짜
+}
 type NoticeEditProps = {
     onNoticeAdded: () => void, //새로 작성, 업데이트 된 공지에 대해 부모 컴포넌트에 신호를 보내는 콜백 함수
     onCancel: () => void, //저장하지 않고 공지 목록으로 돌아가는 콜백 함수

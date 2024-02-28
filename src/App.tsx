@@ -8,11 +8,25 @@ import Header from './component/header/Header';
 import Footer from './component/footer/Footer';
 
 type Notice = {
-  id: string,
-  title: string,
-  content: string,
-  date: string
+  id: string, //공지 식별자
+  title: string, //공지 제목
+  content: string, //공지 내용
+  date: string, //날짜 문자열
+  otherInfo: NoticeView, // 조회수 등 공지의 세부값
 };
+//조회수 등 세부값 관리
+type NoticeView = {
+  _id: string,
+  noticeid: number, //조회수
+  comments: comment[], //댓글
+};
+//댓글
+type comment = {
+  commentId: string, //댓글 아이디
+  commentTitle: string, //댓글 제목
+  commentContent: string, //댓글 내용
+  commentDate: string, // 댓글 작성 날자
+}
 
 type AppState = {
   // 현재 표시되는 화면 추적

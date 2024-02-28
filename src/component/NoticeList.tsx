@@ -11,8 +11,21 @@ type Notice = {
     title: string, //공지 제목
     content: string, //공지 내용
     date: string // 날짜 문자열
+    otherInfo: NoticeView, // 조회수 등 공지의 세부값
 };
-
+//조회수 등 세부값 관리
+type NoticeView = {
+  _id: string,
+  noticeid: number, //조회수
+  comments: comment[], // 댓글
+};
+//댓글
+type comment = {
+  commentId: string, //댓글 아이디
+  commentTitle: string, //댓글 제목
+  commentContent: string, // 댓글 내용
+  commentDate: string, // 댓글 작성 날자
+}
 type NoticeListState = {
     notices: Notice[]; //공지 객체의 배열
 }
