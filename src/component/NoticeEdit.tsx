@@ -7,6 +7,11 @@ import React, {
 import ReactQuill, {Quill} from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import debounce from 'lodash.debounce';
+//아이콘
+import Icon from '@mdi/react';
+import { mdiContentSave } from '@mdi/js';
+import { mdiCancel } from '@mdi/js';
+
 //공지 객체의 구조 정의
 type Notice = {
     id: string, //공지 식별자
@@ -299,13 +304,35 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
             <footer className="Footer">
                 <div className="Footer-btn">
                     <div onClick={this.saveNotice}>
+                      <div style={styles.btnConteainer}>
+                        <Icon path={mdiContentSave}
+                          title="noticeIcon"
+                          size={1}
+                          horizontal
+                          vertical
+                          rotate={180}
+                          color="black"
+                          // spin
+                        />
                         <h3>저장하기</h3>
+                      </div>                        
                     </div>
                     {/* <div onClick={()=> this.applyHtml()}>
                         <h3>HTML 입력</h3>
                     </div> */}
                     <div onClick={this.props.onCancel}>
+                      <div style={styles.btnConteainer}>
+                        <Icon path={mdiCancel}
+                          title="noticeIcon"
+                          size={1}
+                          horizontal
+                          vertical
+                          rotate={180}
+                          color="black"
+                          // spin
+                        />
                         <h3>취소하기</h3>
+                      </div>                        
                     </div>     
                 </div>
             </footer>
@@ -360,6 +387,11 @@ const styles: {[key in string]: CSSProperties}= {
     wordBreak: 'break-word',
     overflowWrap: 'break-word',
     whiteSpace: 'pre-wrap'
+  },
+  btnConteainer : {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 }
 export default NoticeEdit;

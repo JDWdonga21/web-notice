@@ -3,6 +3,7 @@ import React, {CSSProperties} from "react";
 //import parse from 'html-react-parser';
 // import DOMPurify from 'dompurify';
 
+
 type Notice = {
   id: string, //공지 식별자
   title: string, //공지 제목
