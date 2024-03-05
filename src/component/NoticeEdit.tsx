@@ -344,6 +344,7 @@ const styles: {[key in string]: CSSProperties}= {
       display: "flex",
       flexDirection: 'column',
       width: '100%',
+      height: '100%',
       alignItems: 'center',
       justifyContent: 'center',
   },
@@ -357,7 +358,7 @@ const styles: {[key in string]: CSSProperties}= {
       marginRight: '5%',
       width: '94vw',        
       borderBottom: '1px solid #121417',
-      height: '10vh',
+      height: '10%',
   },
   titleArea: {
     marginBottom: '10px'
@@ -379,7 +380,7 @@ const styles: {[key in string]: CSSProperties}= {
     marginLeft: '5%',
     marginRight: '5%',
     width: '94vw', 
-    height: '60vh',
+    height: '80%',
     overflowY: 'scroll',
   },
   articleText: {
@@ -405,7 +406,7 @@ const styles: {[key in string]: CSSProperties}= {
     marginRight: '5%',
     width: '94vw', 
     // height: '65vh',
-    height: '10vh',
+    height: '10%',
   },
   editBtns: {
     display: 'flex',
