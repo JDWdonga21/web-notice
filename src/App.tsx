@@ -67,7 +67,7 @@ class App extends React.Component<{}, AppState> {
     //모달 적용전
     //this.setState({ currentScreen: 'edit', selectedNoticeId: undefined });
     //모달 적용
-    this.setState({ isModalOpen: true, selectedNoticeId: undefined });
+    this.setState({ isModalOpen: true, currentScreen: 'edit', selectedNoticeId: undefined });
   };
   // 로컬 스토리지에서 공지를 삭제하고 목록 화면으로 돌아가도록 함
   handleDeleteNotice = (id: string) => {
