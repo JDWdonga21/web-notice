@@ -1,7 +1,8 @@
 import React, {CSSProperties} from "react";
 //아이콘
 import Icon from '@mdi/react';
-import { mdiListBoxOutline } from '@mdi/js';
+import { mdiBullhorn } from '@mdi/js';
+import { mdiBullhornOutline } from '@mdi/js';
 
 import "../../App.css"
 
@@ -13,12 +14,12 @@ class Header extends React.Component{
                              
                 </div>
                 <div style={styles.headerCenter}>
-                    <Icon path={mdiListBoxOutline}
+                    <Icon path={mdiBullhornOutline}
                         title="noticeIcon"
                         size={2}
                         horizontal
                         vertical
-                        // rotate={90}
+                        rotate={180}
                         color="black"
                         // spin
                     />
