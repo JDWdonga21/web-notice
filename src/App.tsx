@@ -153,6 +153,7 @@ class App extends React.Component<{}, AppState> {
             justifyContent: 'center',
             backgroundColor: '#ffffff',
             height: '80vh',
+            border: '2px solid #000000'
             // width: '90vw',
           }}>
             <NoticeEdit
