@@ -300,7 +300,6 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
             </div>
             {/* <button onClick={()=> this.insertHtmlContent()}>HTML</button> */}
           </main>           
-            
             <footer style={styles.footer}>
                 <div style={styles.editBtns}>
                     <div onClick={this.saveNotice}>
@@ -344,7 +343,7 @@ const styles: {[key in string]: CSSProperties}= {
   body: {
       display: "flex",
       flexDirection: 'column',
-      width: '90%',
+      width: '100%',
       alignItems: 'center',
       justifyContent: 'center',
   },
@@ -358,6 +357,7 @@ const styles: {[key in string]: CSSProperties}= {
       marginRight: '5%',
       width: '94vw',        
       borderBottom: '1px solid #121417',
+      height: '10vh',
   },
   titleArea: {
     marginBottom: '10px'
@@ -409,7 +409,7 @@ const styles: {[key in string]: CSSProperties}= {
   },
   editBtns: {
     display: 'flex',
-        width: '90vw',
+        width: '94vw',
         margin: '4px',
         flexDirection: 'row',
         alignItems: 'center',
