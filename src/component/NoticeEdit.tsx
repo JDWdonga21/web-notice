@@ -301,8 +301,8 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
             {/* <button onClick={()=> this.insertHtmlContent()}>HTML</button> */}
           </main>           
             
-            <footer className="Footer">
-                <div className="Footer-btn">
+            <footer style={styles.footer}>
+                <div style={styles.editBtns}>
                     <div onClick={this.saveNotice}>
                       <div style={styles.btnConteainer}>
                         <Icon path={mdiContentSave}
@@ -352,6 +352,7 @@ const styles: {[key in string]: CSSProperties}= {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'flex-start',
+      justifyContent: 'center',
       padding: '10px',
       marginLeft: '5%',
       marginRight: '5%',
@@ -378,7 +379,7 @@ const styles: {[key in string]: CSSProperties}= {
     marginLeft: '5%',
     marginRight: '5%',
     width: '94vw', 
-    height: '65vh',
+    height: '60vh',
     overflowY: 'scroll',
   },
   articleText: {
@@ -392,6 +393,27 @@ const styles: {[key in string]: CSSProperties}= {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  footer : {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    borderTop: '2px solid #7e848f',
+    padding: '5px',
+    marginLeft: '5%',
+    marginRight: '5%',
+    width: '94vw', 
+    // height: '65vh',
+    height: '10vh',
+  },
+  editBtns: {
+    display: 'flex',
+        width: '90vw',
+        margin: '4px',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-around',
   },
 }
 export default NoticeEdit;

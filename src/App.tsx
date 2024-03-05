@@ -6,6 +6,9 @@ import NoticeEdit from './component/NoticeEdit';
 import "./App.css";
 import Header from './component/header/Header';
 import Footer from './component/footer/Footer';
+//모달 기능
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
 
 type Notice = {
   id: string, //공지 식별자
@@ -33,13 +36,16 @@ type AppState = {
   currentScreen: 'list' | 'detail' | 'edit';
   // 조회 중이거나 편집 중인 공지의 ID 저장
   selectedNoticeId?: string;
+  // 모달 상태
+  isModalOpen: boolean;
 };
 
 class App extends React.Component<{}, AppState> {
   constructor(props: {}) {
     super(props);
     this.state = {
-      currentScreen: 'list'
+      currentScreen: 'list',
+      isModalOpen: false,
     };
   }
   //선택한 공지의 상세보기 화면을 표시하도록 상태를 업데이트
@@ -52,11 +58,16 @@ class App extends React.Component<{}, AppState> {
   }
   // 편집 화면을 표시하도록 상태를 업데이트
   handleEditNotice = (id : string | undefined) => {
-    this.setState({currentScreen: 'edit', selectedNoticeId: id });
+    //this.setState({currentScreen: 'edit', selectedNoticeId: id });
+    //모달 적용
+    this.setState({ isModalOpen: true, selectedNoticeId: id });
   }
   // 새 공지 작성을 위한 편집 화면을 표시하도록 상태를 업데이트
   handleAddNotice = () => {
-    this.setState({ currentScreen: 'edit', selectedNoticeId: undefined });
+    //모달 적용전
+    //this.setState({ currentScreen: 'edit', selectedNoticeId: undefined });
+    //모달 적용
+    this.setState({ isModalOpen: true, selectedNoticeId: undefined });
   };
   // 로컬 스토리지에서 공지를 삭제하고 목록 화면으로 돌아가도록 함
   handleDeleteNotice = (id: string) => {
@@ -71,8 +82,17 @@ class App extends React.Component<{}, AppState> {
   }
   //공지가 추가되거나 편집된 후 목록 화면으로 돌아가도록 상태를 업데이트
   handleNoticeAdded = () => {
-    this.setState({ currentScreen : 'list' });
+    this.setState({ isModalOpen: false, currentScreen : 'list' });
   }
+  // 모달 열고 닫는 메서드
+  handleOpenModal = () => {
+    this.setState({ isModalOpen: true });
+  };
+
+  handleCloseModal = () => {
+    this.setState({ isModalOpen: false, currentScreen: 'list' });
+  };
+
 
   render() {
     const { currentScreen, selectedNoticeId } = this.state;
@@ -114,7 +134,35 @@ class App extends React.Component<{}, AppState> {
           onEditNotice={() => this.handleEditNotice(selectedNoticeId)}
           onDelete={this.handleDeleteNotice}
           onCancel={this.handleNoticeAdded}
-        />        
+        />   
+        {/* NoticeEdit 모달 */}
+        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'red'}}>
+          <Modal
+            open={this.state.isModalOpen}
+            onClose={this.handleCloseModal}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+          <Box sx={{ 
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: '#ffffff',
+            height: '80vh',
+            // width: '90vw',
+          }}>
+            <NoticeEdit
+              id={selectedNoticeId}
+              onNoticeAdded={this.handleNoticeAdded}
+              onCancel={this.handleCloseModal}
+            />
+          </Box>
+        </Modal>
+        </div>        
       </div>
     );
   }
