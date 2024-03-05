@@ -3,6 +3,13 @@ import React, {CSSProperties} from "react";
 //import parse from 'html-react-parser';
 // import DOMPurify from 'dompurify';
 
+//아이콘
+import Icon from '@mdi/react';
+import { mdiListBoxOutline } from '@mdi/js';
+import { mdiFileEditOutline } from '@mdi/js';
+import { mdiSquareEditOutline } from '@mdi/js';
+import { mdiDelete } from '@mdi/js';
+
 
 type Notice = {
   id: string, //공지 식별자
@@ -217,6 +224,7 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
         <main style={styles.mainArea}>
           <article style={styles.articleText} dangerouslySetInnerHTML={{ __html : content }} />
         </main>
+        {/* 코맨트 코드 */}
         {/* <footer style={styles.footer}>
           {comments.map(comment => (
             <div style={styles.commentItem} key={comment.commentId}>
@@ -233,30 +241,79 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
           ))}
           {this.renderCommentForm()}
         </footer> */}
+        {/* 하단 버튼 모음 */}
+        <footer style={styles.footer}>
+          <div style={styles.detailBtns}>
+            <div onClick={this.props.onBackToList}>
+              <div style={styles.btnContainer}>
+                <Icon path={mdiListBoxOutline}
+                                    title="noticeIcon"
+                                    size={1}
+                                    horizontal
+                                    vertical
+                                    rotate={180}
+                                    color="black"
+                                    // spin
+                                />
+                                <h3>목록으로</h3>
+              </div>
+            </div>
+            <div onClick={this.props.onEditNotice}>
+              <div style={styles.btnContainer}>
+                <Icon path={mdiSquareEditOutline}
+                                    title="noticeIcon"
+                                    size={1}
+                                    horizontal
+                                    vertical
+                                    rotate={180}
+                                    color="black"
+                                    // spin
+                                />
+                                <h3>수정하기</h3>
+              </div>
+            </div>
+            <div onClick={() => this.props.id && this.props.onDelete(this.props.id)}>
+              <div style={styles.btnContainer}>
+                <Icon path={mdiDelete}
+                                    title="noticeIcon"
+                                    size={1}
+                                    horizontal
+                                    vertical
+                                    rotate={180}
+                                    color="black"
+                                    // spin
+                                />
+                                <h3>삭제하기</h3>
+              </div>
+            </div>            
+          </div>
+        </footer>
       </div>
     );
   }
 }
 const styles: {[key in string]: CSSProperties}= {
-  body: {
+  body: {    
     display: "flex",
     flexDirection: 'column',
-    width: '90%',
+    width: '100%',
+    height: '100%',
     alignItems: 'center',
-    justifyContent: 'flex-start', // 컨텐츠가 시작 부분에서 정렬되도록 조정
-    minHeight: '80vh', // 뷰포트의 높이에 맞게 조정
-    paddingBottom: '20px', // 하단에 여유 공간 추가
+    justifyContent: 'center',
+    // minHeight: '80vh', // 뷰포트의 높이에 맞게 조정
+    // paddingBottom: '20px', // 하단에 여유 공간 추가
   },
   header: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
+    justifyContent: 'center',
     padding: '10px',
     marginLeft: '5%',
     marginRight: '5%',
-    marginBottom: '5px',
     width: '94vw',        
     borderBottom: '2px solid #121417',
+    height: '10%',
   },
   titleArea: {
     marginBottom: '10px'
@@ -264,13 +321,15 @@ const styles: {[key in string]: CSSProperties}= {
   titleText: {
       fontWeight: 'bold',
       fontSize: 24,
+      marginTop: '10px',
+      marginBottom: '10px'
   },
   mainArea: {
     display: 'flex',
     flex: '1',
     overflowY: 'auto', // 내용이 넘칠 경우 스크롤 가능
     flexDirection: 'column',
-    height: '100%',
+    height: '80%',
     // height: 'calc(50vh - 80px)',
     alignItems: 'flex-start',
     padding: '10px',
@@ -288,58 +347,74 @@ const styles: {[key in string]: CSSProperties}= {
     whiteSpace: 'pre-wrap'
   },
   footer: {
-    marginBottom: 5,
-    borderTop: '1px solid #ccc',
-    padding: '10px',
-    width: '100%', // 부모 컨테이너의 전체 너비 사용
-    background: '#f8f9fa', // 배경색 설정
-    boxSizing: 'border-box', // 패딩이 너비에 포함되도록 설정
-    overflowY: 'auto', // 내용이 넘칠 경우 스크롤 가능
-  },
-  commentForm: {
     display: 'flex',
-    flexDirection: 'column',
-    gap: '10px',
-    marginBottom: '20px',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    borderTop: '2px solid #7e848f',
+    padding: '5px',
+    marginLeft: '5%',
+    marginRight: '5%',
+    width: '94vw', 
+    height: '10%',
   },
-  input: {
-    padding: '10px',
-    borderRadius: '4px',
-    border: '1px solid #ccc',
+  detailBtns: {
+    display: 'flex',
+        width: '94vw',
+        margin: '4px',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-around',
   },
-  textarea: {
-    padding: '10px',
-    borderRadius: '4px',
-    border: '1px solid #ccc',
-    minHeight: '100px',
+  btnContainer : {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
-  submitButton: {
-    padding: '10px 20px',
-    background: '#007bff',
-    color: 'white',
-    border: 'none',
-    borderRadius: '4px',
-    cursor: 'pointer',
-  },
-  commentItem: {
-    background: '#f8f9fa', // 댓글 배경색
-    border: '1px solid #dee2e6', // 댓글 테두리
-    borderRadius: '8px', // 둥근 모서리
-    padding: '10px', // 내부 여백
-    marginBottom: '10px', // 댓글 간 간격
-  },
-  commentTitle: {
-    fontWeight: 'bold', // 댓글 제목 굵기
-    fontSize: '16px', // 폰트 크기
-    marginBottom: '5px', // 제목과 내용 사이의 간격
-  },
-  commentContent: {
-    fontSize: '14px', // 내용 폰트 크기
-    marginBottom: '5px', // 내용과 날짜 사이의 간격
-  },
-  commentDate: {
-    fontSize: '12px', // 날짜 폰트 크기
-    color: '#6c757d', // 날짜 폰트 색상
-  },
+  // commentForm: {
+  //   display: 'flex',
+  //   flexDirection: 'column',
+  //   gap: '10px',
+  //   marginBottom: '20px',
+  // },
+  // input: {
+  //   padding: '10px',
+  //   borderRadius: '4px',
+  //   border: '1px solid #ccc',
+  // },
+  // textarea: {
+  //   padding: '10px',
+  //   borderRadius: '4px',
+  //   border: '1px solid #ccc',
+  //   minHeight: '100px',
+  // },
+  // submitButton: {
+  //   padding: '10px 20px',
+  //   background: '#007bff',
+  //   color: 'white',
+  //   border: 'none',
+  //   borderRadius: '4px',
+  //   cursor: 'pointer',
+  // },
+  // commentItem: {
+  //   background: '#f8f9fa', // 댓글 배경색
+  //   border: '1px solid #dee2e6', // 댓글 테두리
+  //   borderRadius: '8px', // 둥근 모서리
+  //   padding: '10px', // 내부 여백
+  //   marginBottom: '10px', // 댓글 간 간격
+  // },
+  // commentTitle: {
+  //   fontWeight: 'bold', // 댓글 제목 굵기
+  //   fontSize: '16px', // 폰트 크기
+  //   marginBottom: '5px', // 제목과 내용 사이의 간격
+  // },
+  // commentContent: {
+  //   fontSize: '14px', // 내용 폰트 크기
+  //   marginBottom: '5px', // 내용과 날짜 사이의 간격
+  // },
+  // commentDate: {
+  //   fontSize: '12px', // 날짜 폰트 크기
+  //   color: '#6c757d', // 날짜 폰트 색상
+  // },
 }
 export default NoticeDetail;

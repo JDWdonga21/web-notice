@@ -258,8 +258,7 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
     return (
         <div style={styles.body}>
           <header style={styles.header}>
-            <form onSubmit={this.handleSubmit}>
-              <text style={styles.titleText}>제목  </text>
+            <text style={styles.titleText}>제목  </text>
               <label>
                 <input
                   type="text"
@@ -267,43 +266,39 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
                   onChange={e => this.setState({ title: e.target.value })}
                 />
               </label>
-            </form>
+            {/* <form onSubmit={this.handleSubmit}>
+              
+            </form> */}
           </header>
           <main style={styles.mainArea}>   
-            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center'}}>
-              <div style={{display: 'flex'}}>
-                <text style={styles.titleText}>내용</text>
-              </div>
-              <div style={{display: 'flex'}}>
-                <ReactQuill
-                  modules={modules}
-                  theme="snow"
-                  style={{display: 'flex', flexDirection: 'column', width: '90vw', height: '30vh', marginBottom: '20px' }}
-                  value={editorHtml}
-                  onChange={this.handleEditorChange}
-                />
-              </div>
-            </div>   
-            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center'}}>
-              <div style={{display: 'flex'}}>
-                <text style={styles.titleText}>HTML 입력</text>
-              </div>  
-              <div style={{display: 'flex'}}>
-                <textarea
+            <text style={styles.titleText}>내용</text>
+            <div style={styles.reactQuillContainer}>
+              
+              <ReactQuill
+                    modules={modules}
+                    theme="snow"
+                    style={{ width: '100%', height: '100%' }}
+                    value={editorHtml}
+                    onChange={this.handleEditorChange}
+              />
+            </div>              
+            <text style={styles.titleText}>HTML 입력</text>
+            <div style={styles.htmlInputContainer}>
+              
+              <textarea
                   value={htmlInput}
                   onChange={this.handleTextareaChange}
                   // onChange={this.handleHtmlInputChange2}
                   placeholder="HTML 코드를 여기에 입력하세요."
-                  style={{display: 'flex', width: '90vw', height: '30vh', marginBottom: '20px' }}
-                />
-              </div> 
+                  style={styles.textarea}
+              />  
             </div>
             {/* <button onClick={()=> this.insertHtmlContent()}>HTML</button> */}
           </main>           
             <footer style={styles.footer}>
                 <div style={styles.editBtns}>
                     <div onClick={this.saveNotice}>
-                      <div style={styles.btnConteainer}>
+                      <div style={styles.btnContainer}>
                         <Icon path={mdiContentSave}
                           title="noticeIcon"
                           size={1}
@@ -320,7 +315,7 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
                         <h3>HTML 입력</h3>
                     </div> */}
                     <div onClick={this.props.onCancel}>
-                      <div style={styles.btnConteainer}>
+                      <div style={styles.btnContainer}>
                         <Icon path={mdiCancel}
                           title="noticeIcon"
                           size={1}
@@ -350,9 +345,9 @@ const styles: {[key in string]: CSSProperties}= {
   },
   header: {
       display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'flex-start',
-      justifyContent: 'center',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
       padding: '10px',
       marginLeft: '5%',
       marginRight: '5%',
@@ -372,16 +367,37 @@ const styles: {[key in string]: CSSProperties}= {
       marginBottom: '10px'
   },
   mainArea: {
+    flex: 1,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    // justifyContent: 'space-around',
     padding: '5px',
     marginLeft: '5%',
     marginRight: '5%',
     width: '94vw', 
     height: '80%',
-    overflowY: 'scroll',
+    overflowY: 'auto',
+    flexGrow: 1, // 사용 가능한 공간을 모두 채움
+  },
+  reactQuillContainer: {
+    flex: 1, // ReactQuill에 비율을 할당
+    width: '100%',
+    minHeight: '200px', // ReactQuill의 최소 높이 설정
+    marginBottom: '20px',
+    overflowY: 'auto',
+    flexGrow: 1, // 사용 가능한 공간을 모두 채움
+  },
+  htmlInputContainer: {
+    flex: 1, // textarea에 비율을 할당
+    width: '100%',
+    minHeight: '200px', // HTML 입력 영역의 최소 높이 설정
+    overflowY: 'auto',
+    flexGrow: 1, // 사용 가능한 공간을 모두 채움
+  },
+  // textarea 스타일 수정
+  textarea: {
+    width: '100%', // 너비를 컨테이너에 맞춤
+    height: '100%', // 높이를 부모 컨테이너에 맞춤
   },
   articleText: {
     display: 'flex',
@@ -390,7 +406,7 @@ const styles: {[key in string]: CSSProperties}= {
     overflowWrap: 'break-word',
     whiteSpace: 'pre-wrap'
   },
-  btnConteainer : {
+  btnContainer : {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
@@ -405,7 +421,6 @@ const styles: {[key in string]: CSSProperties}= {
     marginLeft: '5%',
     marginRight: '5%',
     width: '94vw', 
-    // height: '65vh',
     height: '10%',
   },
   editBtns: {

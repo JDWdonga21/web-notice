@@ -50,17 +50,17 @@ class App extends React.Component<{}, AppState> {
   }
   //선택한 공지의 상세보기 화면을 표시하도록 상태를 업데이트
   handleNoticeClick = (id: string) => {
-    this.setState({ currentScreen: 'detail', selectedNoticeId: id });
+    this.setState({ isModalOpen: true, currentScreen: 'detail', selectedNoticeId: id });
   };
   //목록 화면으로 돌아가도록 상태를 업데이트
   handleBackToList = () => {
-    this.setState({ currentScreen: 'list', selectedNoticeId: undefined });
+    this.setState({ currentScreen: 'list', isModalOpen: false, selectedNoticeId: undefined });
   }
   // 편집 화면을 표시하도록 상태를 업데이트
   handleEditNotice = (id : string | undefined) => {
     //this.setState({currentScreen: 'edit', selectedNoticeId: id });
     //모달 적용
-    this.setState({ isModalOpen: true, selectedNoticeId: id });
+    this.setState({ isModalOpen: true,  currentScreen: 'edit', selectedNoticeId: id });
   }
   // 새 공지 작성을 위한 편집 화면을 표시하도록 상태를 업데이트
   handleAddNotice = () => {
@@ -78,7 +78,8 @@ class App extends React.Component<{}, AppState> {
     }   
 
     //삭제 후 목록 화면으로
-    this.setState({currentScreen: 'list'});
+    //this.setState({currentScreen: 'list'});
+    this.setState({currentScreen: 'list', isModalOpen: false});
   }
   //공지가 추가되거나 편집된 후 목록 화면으로 돌아가도록 상태를 업데이트
   handleNoticeAdded = () => {
@@ -114,7 +115,7 @@ class App extends React.Component<{}, AppState> {
               id={selectedNoticeId} 
               onBackToList={this.handleBackToList}
               onEditNotice={() => this.handleEditNotice(selectedNoticeId)}
-              onDelete={this.handleDeleteNotice}
+              onDelete={this.handleDeleteNotice} 
             />
           )}
           {/* 추가,편집 화면 */}
@@ -136,7 +137,7 @@ class App extends React.Component<{}, AppState> {
           onCancel={this.handleNoticeAdded}
         />   
         {/* NoticeEdit 모달 */}
-        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'red'}}>
+        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
           <Modal
             open={this.state.isModalOpen}
             onClose={this.handleCloseModal}
@@ -157,11 +158,26 @@ class App extends React.Component<{}, AppState> {
             border: '2px solid #000000'
             // width: '90vw',
           }}>
-            <NoticeEdit
+            {/* <NoticeEdit
               id={selectedNoticeId}
               onNoticeAdded={this.handleNoticeAdded}
               onCancel={this.handleCloseModal}
-            />
+            /> */}
+            {currentScreen === 'edit' && (
+              <NoticeEdit 
+                id={selectedNoticeId}
+                onNoticeAdded = {this.handleNoticeAdded}  
+                onCancel={this.handleNoticeAdded}        
+              />
+            )}
+            {currentScreen === 'detail' && selectedNoticeId && (
+              <NoticeDetail 
+                id={selectedNoticeId} 
+                onBackToList={this.handleBackToList}
+                onEditNotice={() => this.handleEditNotice(selectedNoticeId)}
+                onDelete={this.handleDeleteNotice}
+              />
+            )}
           </Box>
         </Modal>
         </div>        
