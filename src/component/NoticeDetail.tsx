@@ -9,6 +9,8 @@ import { mdiListBoxOutline } from '@mdi/js';
 import { mdiFileEditOutline } from '@mdi/js';
 import { mdiSquareEditOutline } from '@mdi/js';
 import { mdiDelete } from '@mdi/js';
+import { mdiArrowLeftBottomBold } from '@mdi/js';
+import { mdiClose } from '@mdi/js';
 
 
 type Notice = {
@@ -214,11 +216,26 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
     return (
       <div style={styles.body}>
         <header style={styles.header}>
-          <div style={styles.titleArea}>
-            <text style={styles.titleText}>{title}</text>
-          </div>
-          <div>
-            <text>{this.formatDate(date)} 조회수: {noticeid}</text>
+          {/* 제목 날짜 */}
+          <div style={styles.headerleft}>
+            <div style={styles.titleArea}>
+              <text style={styles.titleText}>{title}</text>
+            </div>
+            <div>
+              <text style={{color: '#ffffff'}}>{this.formatDate(date)} 조회수: {noticeid}</text>
+            </div>
+          </div>          
+          {/* 닫기 표시 */}
+          <div style={styles.headerRight}>
+            <Icon path={mdiClose}
+              title="mdiClose"
+              size={2}
+              horizontal
+              vertical
+              rotate={180}
+              color="#ffffff"
+              // spin
+            />
           </div>
         </header>    
         <main style={styles.mainArea}>
@@ -305,15 +322,26 @@ const styles: {[key in string]: CSSProperties}= {
   },
   header: {
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'row',
     alignItems: 'flex-start',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     padding: '10px',
     marginLeft: '5%',
     marginRight: '5%',
     width: '94vw',        
     borderBottom: '2px solid #121417',
     height: '10%',
+    backgroundColor: '#1e1e1e'
+  },
+  headerLeft: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  headerRight: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   titleArea: {
     marginBottom: '10px'
@@ -322,7 +350,8 @@ const styles: {[key in string]: CSSProperties}= {
       fontWeight: 'bold',
       fontSize: 24,
       marginTop: '10px',
-      marginBottom: '10px'
+      marginBottom: '10px',
+      color: '#ffffff'
   },
   mainArea: {
     display: 'flex',
@@ -339,12 +368,14 @@ const styles: {[key in string]: CSSProperties}= {
     width: '94vw', 
     wordWrap: 'break-word',
     overflowWrap: 'break-word',
+    backgroundColor: '#272727'
   },
   articleText: {
     textAlign: 'start',
     wordBreak: 'break-word',
     overflowWrap: 'break-word',
-    whiteSpace: 'pre-wrap'
+    whiteSpace: 'pre-wrap',
+    color: '#ffffff'
   },
   footer: {
     display: 'flex',

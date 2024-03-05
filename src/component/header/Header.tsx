@@ -20,10 +20,10 @@ class Header extends React.Component{
                         horizontal
                         vertical
                         rotate={180}
-                        color="black"
+                        color="#ffffff"
                         // spin
                     />
-                    <h1>공지사항</h1>                    
+                    <h1 style={{color:'#ffffff'}}>공지사항</h1>                    
                 </div>
                 <div style={styles.headerRight}>
                     
@@ -39,7 +39,9 @@ const styles: {[key in string]: CSSProperties}= {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        backgroundColor: '#ffc519',
+        // backgroundColor: '#ffc519',
+        backgroundColor: '#1e1e1e',
+        borderBottom: '3px solid #ffffff'
     },
     headerLeft : {
 
@@ -47,7 +49,7 @@ const styles: {[key in string]: CSSProperties}= {
     headerCenter : {
         display: 'flex',
         flexDirection: 'row',
-        alignItems: 'center',
+        alignItems: 'center',        
     },
     headerRight : {
 

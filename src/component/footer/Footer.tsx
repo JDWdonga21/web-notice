@@ -38,7 +38,7 @@ class Footer extends React.Component<Footerprops>{
                         <h3>공지사항 추가</h3>
                     </div>
                 )}
-                {this.props.appCurrentScreen === 'detail' && (
+                {/* {this.props.appCurrentScreen === 'detail' && (
                     <div style={styles.detailBtns}>
                         <div onClick={this.props.onBackToList}>
                             <div style={styles.btnConteainer}>
@@ -83,7 +83,7 @@ class Footer extends React.Component<Footerprops>{
                             </div>                            
                         </div>
                     </div>
-                )}
+                )} */}
             </div>
         )
     }

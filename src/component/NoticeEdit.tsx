@@ -271,18 +271,22 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
             </form> */}
           </header>
           <main style={styles.mainArea}>   
-            <text style={styles.titleText}>내용</text>
+            <div style={styles.mainTitle}>
+              <text style={styles.titleText}>내용</text>
+            </div>            
             <div style={styles.reactQuillContainer}>
               
               <ReactQuill
                     modules={modules}
                     theme="snow"
-                    style={{ width: '100%', height: '100%' }}
+                    style={{ width: '100%', height: '100%', color: '#ffffff' }}
                     value={editorHtml}
                     onChange={this.handleEditorChange}
               />
-            </div>              
-            <text style={styles.titleText}>HTML 입력</text>
+            </div>  
+            <div style={styles.mainTitle}>
+              <text style={styles.titleText}>HTML 입력</text>
+            </div>           
             <div style={styles.htmlInputContainer}>
               
               <textarea
@@ -342,6 +346,7 @@ const styles: {[key in string]: CSSProperties}= {
       height: '100%',
       alignItems: 'center',
       justifyContent: 'center',
+      // backgroundColor: '#272727'
   },
   header: {
       display: 'flex',
@@ -352,8 +357,9 @@ const styles: {[key in string]: CSSProperties}= {
       marginLeft: '5%',
       marginRight: '5%',
       width: '94vw',        
-      borderBottom: '1px solid #121417',
+      borderBottom: '1px solid #ffffff',
       height: '10%',
+      backgroundColor: '#1e1e1e'
   },
   titleArea: {
     marginBottom: '10px'
@@ -364,7 +370,8 @@ const styles: {[key in string]: CSSProperties}= {
       fontWeight: 'bold',
       fontSize: 20,
       marginTop: '10px',
-      marginBottom: '10px'
+      marginBottom: '10px',
+      color: '#ffffff'
   },
   mainArea: {
     flex: 1,
@@ -378,6 +385,12 @@ const styles: {[key in string]: CSSProperties}= {
     height: '80%',
     overflowY: 'auto',
     flexGrow: 1, // 사용 가능한 공간을 모두 채움
+    backgroundColor: '#272727'
+  },
+  mainTitle: {
+    flex: 1, // ReactQuill에 비율을 할당
+    width: '100%',
+    paddingLeft: '10px',
   },
   reactQuillContainer: {
     flex: 1, // ReactQuill에 비율을 할당
@@ -386,6 +399,7 @@ const styles: {[key in string]: CSSProperties}= {
     marginBottom: '20px',
     overflowY: 'auto',
     flexGrow: 1, // 사용 가능한 공간을 모두 채움
+    backgroundColor: '#ffffff'
   },
   htmlInputContainer: {
     flex: 1, // textarea에 비율을 할당

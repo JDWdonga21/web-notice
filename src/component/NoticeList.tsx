@@ -112,9 +112,11 @@ const styles: {[key in string]: CSSProperties}= {
     titleText: {
         fontWeight: 'bold',
         fontSize: 24,
+        color: '#ffffff'
     },
     dateArea: {
-        marginBottom: '20px' 
+        marginBottom: '20px',
+        color: '#ffffff'
     },
 }
 export default NoticeList;
