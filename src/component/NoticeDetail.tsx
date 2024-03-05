@@ -216,7 +216,7 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
         <main style={styles.mainArea}>
           <article style={styles.articleText} dangerouslySetInnerHTML={{ __html : content }} />
         </main>
-        <footer style={styles.footer}>
+        {/* <footer style={styles.footer}>
           {comments.map(comment => (
             <div style={styles.commentItem} key={comment.commentId}>
               <div style={styles.commentTitle}>
@@ -231,7 +231,7 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
             </div>
           ))}
           {this.renderCommentForm()}
-        </footer>
+        </footer> */}
       </div>
     );
   }
