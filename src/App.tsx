@@ -140,6 +140,7 @@ class App extends React.Component<{}, AppState> {
           <Modal
             open={this.state.isModalOpen}
             onClose={this.handleCloseModal}
+            style={{ border: 'none', overflow: 'hidden' }}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
           >
