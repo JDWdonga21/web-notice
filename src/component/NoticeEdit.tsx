@@ -11,6 +11,11 @@ import debounce from 'lodash.debounce';
 import Icon from '@mdi/react';
 import { mdiContentSave } from '@mdi/js';
 import { mdiCancel } from '@mdi/js';
+//mui
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
 
 //공지 객체의 구조 정의
 type Notice = {
@@ -258,17 +263,28 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
     return (
         <div style={styles.body}>
           <header style={styles.header}>
-            <text style={styles.titleText}>제목  </text>
-              <label>
+            <text style={styles.titleText}>제목 : </text>
+              {/* <label>
                 <input
                   type="text"
                   value={this.state.title}
                   onChange={e => this.setState({ title: e.target.value })}
                 />
-              </label>
-            {/* <form onSubmit={this.handleSubmit}>
-              
-            </form> */}
+              </label> */}
+            <Box
+              sx={{
+                width: 500,
+                maxWidth: '80%',
+                backgroundColor: '#ffffff'
+              }}
+            >
+              <TextField 
+                fullWidth label="제목" 
+                id="fullWidth" 
+                value={this.state.title}
+                onChange={e => this.setState({ title: e.target.value })}
+              />
+            </Box>
           </header>
           <main style={styles.mainArea}>   
             <div style={styles.mainTitle}>
@@ -279,7 +295,7 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
               <ReactQuill
                     modules={modules}
                     theme="snow"
-                    style={{ width: '100%', height: '100%', color: '#ffffff' }}
+                    style={{ width: '100%', height: '100%' }}
                     value={editorHtml}
                     onChange={this.handleEditorChange}
               />
@@ -289,18 +305,32 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
             </div>           
             <div style={styles.htmlInputContainer}>
               
-              <textarea
+              {/* <textarea
                   value={htmlInput}
                   onChange={this.handleTextareaChange}
                   // onChange={this.handleHtmlInputChange2}
                   placeholder="HTML 코드를 여기에 입력하세요."
                   style={styles.textarea}
-              />  
+              />   */}
+              <TextField
+                id="htmlInput"
+                label="htmlInput"
+                multiline
+                rows={6}
+                // defaultValue="Default Value"
+                value={htmlInput}
+                onChange={this.handleTextareaChange}
+                sx={{
+                  width: '100%',
+                  // height: '100%',
+                  backgroundColor: '#ffffff'
+                }}
+              />
             </div>
             {/* <button onClick={()=> this.insertHtmlContent()}>HTML</button> */}
           </main>           
             <footer style={styles.footer}>
-                <div style={styles.editBtns}>
+                {/* <div style={styles.editBtns}>
                     <div onClick={this.saveNotice}>
                       <div style={styles.btnContainer}>
                         <Icon path={mdiContentSave}
@@ -315,9 +345,6 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
                         <h3>저장하기</h3>
                       </div>                        
                     </div>
-                    {/* <div onClick={()=> this.applyHtml()}>
-                        <h3>HTML 입력</h3>
-                    </div> */}
                     <div onClick={this.props.onCancel}>
                       <div style={styles.btnContainer}>
                         <Icon path={mdiCancel}
@@ -332,7 +359,49 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
                         <h3>취소하기</h3>
                       </div>                        
                     </div>     
-                </div>
+                </div> */}
+              <ButtonGroup
+                size="large"
+                variant="contained" 
+                aria-label="Basic button group"
+              >
+                <Button
+                  onClick={this.saveNotice}
+                  sx={{
+                    width: '45vw',
+                    margin: 1
+                  }}
+                >
+                  <Icon path={mdiContentSave}
+                    title="noticeIcon"
+                    size={1}
+                    horizontal
+                    vertical
+                    rotate={180}
+                    color="white"
+                    // spin
+                  />
+                  저장하기
+                </Button>
+                <Button
+                  onClick={this.props.onCancel}
+                  sx={{
+                    width: '45vw',
+                    margin: 1
+                  }}
+                >
+                  <Icon path={mdiCancel}
+                    title="noticeIcon"
+                    size={1}
+                    horizontal
+                    vertical
+                    rotate={180}
+                    color="white"
+                    // spin
+                  />
+                  취소하기
+                </Button>
+              </ButtonGroup>
             </footer>
         </div>      
     );
@@ -346,13 +415,13 @@ const styles: {[key in string]: CSSProperties}= {
       height: '100%',
       alignItems: 'center',
       justifyContent: 'center',
-      // backgroundColor: '#272727'
+      backgroundColor: '#272727'
   },
   header: {
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
-      justifyContent: 'flex-start',
+      justifyContent: 'space-around',
       padding: '10px',
       marginLeft: '5%',
       marginRight: '5%',

@@ -7,6 +7,10 @@ import { mdiFileEditOutline } from '@mdi/js';
 import { mdiSquareEditOutline } from '@mdi/js';
 import { mdiDelete } from '@mdi/js';
 
+//mui
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+
 import "../../App.css"
 
 type Footerprops = {
@@ -25,18 +29,38 @@ class Footer extends React.Component<Footerprops>{
         return(
             <div style={styles.body}>                
                 {this.props.appCurrentScreen === 'list' && (
-                    <div style={styles.listBtns} onClick={this.props.onAddNotice}>   
+                    // <div style={styles.listBtns} onClick={this.props.onAddNotice}>   
+                    //     <Icon path={mdiPlusCircle}
+                    //         title="noticeIcon"
+                    //         size={1}
+                    //         horizontal
+                    //         vertical
+                    //         // rotate={180}
+                    //         color="black"
+                    //         // spin
+                    //     />                 
+                    //     <h3>공지사항 추가</h3>
+                    // </div>
+                    <Button 
+                        size='large' 
+                        variant="contained"
+                        onClick={this.props.onAddNotice}
+                        sx={{
+                            width: '90vw',
+                            margin: 1
+                        }}
+                    >
                         <Icon path={mdiPlusCircle}
                             title="noticeIcon"
                             size={1}
                             horizontal
                             vertical
                             // rotate={180}
-                            color="black"
+                            color="white"
                             // spin
-                        />                 
-                        <h3>공지사항 추가</h3>
-                    </div>
+                        />
+                        공지사항 추가
+                    </Button>                
                 )}
                 {/* {this.props.appCurrentScreen === 'detail' && (
                     <div style={styles.detailBtns}>
@@ -95,9 +119,11 @@ const styles: {[key in string]: CSSProperties}= {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#ffffff',
+        backgroundColor: '#272727',
         borderTop: '2px solid #7e848f',
         position: 'fixed',
+        paddingTop: '5px',
+        paddingBottom: '5px',
         bottom: 0,
         left: 0,        
     },

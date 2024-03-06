@@ -11,6 +11,9 @@ import { mdiSquareEditOutline } from '@mdi/js';
 import { mdiDelete } from '@mdi/js';
 import { mdiArrowLeftBottomBold } from '@mdi/js';
 import { mdiClose } from '@mdi/js';
+//mui
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
 
 
 type Notice = {
@@ -226,7 +229,7 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
             </div>
           </div>          
           {/* 닫기 표시 */}
-          <div style={styles.headerRight}>
+          <div style={styles.headerRight} onClick={this.props.onBackToList}>
             <Icon path={mdiClose}
               title="mdiClose"
               size={2}
@@ -260,7 +263,7 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
         </footer> */}
         {/* 하단 버튼 모음 */}
         <footer style={styles.footer}>
-          <div style={styles.detailBtns}>
+          {/* <div style={styles.detailBtns}>
             <div onClick={this.props.onBackToList}>
               <div style={styles.btnContainer}>
                 <Icon path={mdiListBoxOutline}
@@ -303,7 +306,49 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
                                 <h3>삭제하기</h3>
               </div>
             </div>            
-          </div>
+          </div> */}
+          <ButtonGroup
+              size="large"
+              variant="contained" 
+              aria-label="Basic button group"
+            >
+              <Button
+                onClick={this.props.onEditNotice}
+                sx={{
+                  width: '45vw',
+                  margin: 1
+                }}
+              >
+                <Icon path={mdiSquareEditOutline}
+                    title="noticeIcon"
+                    size={1}
+                    horizontal
+                    vertical
+                    rotate={180}
+                    color="white"
+                    // spin
+                />
+                수정하기
+              </Button>
+              <Button
+                onClick={() => this.props.id && this.props.onDelete(this.props.id)}
+                sx={{
+                  width: '45vw',
+                  margin: 1
+                }}
+              >
+                <Icon path={mdiDelete}
+                    title="noticeIcon"
+                    size={1}
+                    horizontal
+                    vertical
+                    rotate={180}
+                    color="white"
+                    // spin
+                />
+                삭제하기
+              </Button>
+            </ButtonGroup>
         </footer>
       </div>
     );
@@ -319,6 +364,7 @@ const styles: {[key in string]: CSSProperties}= {
     justifyContent: 'center',
     // minHeight: '80vh', // 뷰포트의 높이에 맞게 조정
     // paddingBottom: '20px', // 하단에 여유 공간 추가
+    backgroundColor: '#272727'
   },
   header: {
     display: 'flex',
@@ -381,21 +427,23 @@ const styles: {[key in string]: CSSProperties}= {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     borderTop: '2px solid #7e848f',
     padding: '5px',
-    marginLeft: '5%',
-    marginRight: '5%',
+    // marginLeft: '5%',
+    // marginRight: '5%',
     width: '94vw', 
     height: '10%',
+    backgroundColor: '#272727',
   },
   detailBtns: {
     display: 'flex',
         width: '94vw',
-        margin: '4px',
+        // margin: '4px',
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-around',
+        justifyContent: 'center',
+        backgroundColor: '#272727'
   },
   btnContainer : {
     display: 'flex',
