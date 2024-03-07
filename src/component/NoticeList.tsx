@@ -66,15 +66,16 @@ class NoticeList extends React.Component<NoticeListprops, NoticeListState>{
 
     render(): React.ReactNode {
         return(
-            <Box sx={{ width: '100vw', height: '85vh', bgcolor: 'background.paper' }}>
+            <Box sx={{ width: '100vw', height: '85vh', bgcolor: (theme) => theme.palette.mode === 'dark' ? '#272727' : '#ffffff' }}>
                 {/* **공지 표시:** `main` 섹션 내부에서 `this.state.notices` 배열을 반복 */}
-                    <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+                    <Box sx={{ width: '100%' }}>
                         <List>
                             {this.state.notices.map((notice) => (
                                 <ListItem 
                                     onClick={() => this.props.onNoticeClick(notice.id)} 
                                     key={notice.id} 
                                     sx={{
+                                        backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#3d3d3d' : '#ffffff' ,
                                         borderBottom: (theme) =>
                                         `1px solid ${theme.palette.mode === 'dark' ? '#ffffff' : '#000000'}`,
                                     }}>

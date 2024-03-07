@@ -71,7 +71,7 @@ class Header extends React.Component<HeaderProps,{}>{
               elevation={0} 
               sx={ {
                 paddingTop: '15px',
-                bgcolor: 'background.default',
+                bgcolor: (theme) => theme.palette.mode === 'dark' ? '#1e1e1e' : '#ffc519',
                 borderBottom: '3px solid',
                 alignItems: 'center',
                 justifyContent: 'center'

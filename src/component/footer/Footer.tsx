@@ -11,6 +11,7 @@ import { mdiDelete } from '@mdi/js';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import { createTheme } from '@mui/material/styles';
 
 
 import "../../App.css"
@@ -32,7 +33,8 @@ class Footer extends React.Component<Footerprops>{
             <Box 
                 component="section" 
                 sx={{
-                    width: '100%',        
+                    width: '100%',
+                    bgcolor: (theme) => theme.palette.mode === 'dark' ? '#272727' : '#ffefc1',        
                     display: 'flex',
                     flexDirection: 'row',
                     alignItems: 'center',
@@ -65,7 +67,7 @@ class Footer extends React.Component<Footerprops>{
                         onClick={this.props.onAddNotice}
                         sx={{
                             width: '90vw',
-                            margin: 1
+                            margin: 1,
                         }}
                     >
                         <Icon path={mdiPlusCircle}
