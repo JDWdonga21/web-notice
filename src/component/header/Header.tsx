@@ -97,6 +97,16 @@ class Header extends React.Component<HeaderProps,{}>{
                         labelPlacement="bottom"
                     />
                 </FormGroup> */}
+                <div onClick={this.props.onChangeTheme}>
+                  <Icon path={mdiBullhornOutline}
+                          title="noticeIcon"
+                          size={2}
+                          horizontal
+                          vertical
+                          rotate={180}
+                    
+                  />
+                </div>                
               </Toolbar>                
             </AppBar>
         )
