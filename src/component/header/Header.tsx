@@ -1,12 +1,13 @@
 import React, {CSSProperties} from "react";
 import { styled } from '@mui/material/styles';
-import FormControlLabel from '@mui/material/FormControlLabel';
+// import FormControlLabel from '@mui/material/FormControlLabel';
 //아이콘
 import Icon from '@mdi/react';
 import { mdiBullhorn } from '@mdi/js';
 import { mdiBullhornOutline } from '@mdi/js';
 //스위치
 import Switch, { SwitchProps } from '@mui/material/Switch';
+import { AppBar, Toolbar, Typography, FormGroup, FormControlLabel, useTheme } from '@mui/material';
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
   height: 34,
@@ -64,37 +65,39 @@ type HeaderProps = {
 class Header extends React.Component<HeaderProps,{}>{
     render(): React.ReactNode {
         return(
-            <Container 
-              sx={[styles.body, {
+            <AppBar
+              position="static"
+              color="default"
+              elevation={0} 
+              sx={ {
+                paddingTop: '15px',
                 bgcolor: 'background.default',
-             }]}
+                borderBottom: '3px solid',
+                alignItems: 'center',
+                justifyContent: 'center'
+             }}
             >
-                <div style={styles.headerLeft}>
-                             
-                </div>
-                <div style={styles.headerCenter}>
-                    <Icon path={mdiBullhornOutline}
+              <Toolbar>
+                <Icon path={mdiBullhornOutline}
                         title="noticeIcon"
                         size={2}
                         horizontal
                         vertical
                         rotate={180}
-                        color="#ffffff"
-                        // spin
-                    />
-                    <h1 style={{color:'#ffffff'}}>공지사항</h1>                    
-                </div>
-                <div style={styles.headerRight}>
-                    {/* <div onClick={this.props.onChangeTheme}>
-                        <h1>실험</h1>
-                    </div> */}
+                  
+                />
+                <Typography variant="h4" color="inherit" noWrap sx={{ flexGrow: 1, marginLeft: 2}}>
+                  공지사항
+                </Typography>
+                <FormGroup>
                     <FormControlLabel
                         control={<MaterialUISwitch sx={{ m: 1 }} onChange={this.props.onChangeTheme} />}
                         label={ this.props.isdarkTheme? "다크모드" : "라이트모드"}
                         labelPlacement="bottom"
                     />
-                </div>
-            </Container>
+                </FormGroup>
+              </Toolbar>                
+            </AppBar>
         )
     }
 }
