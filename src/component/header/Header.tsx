@@ -74,7 +74,8 @@ class Header extends React.Component<HeaderProps,{}>{
                 bgcolor: (theme) => theme.palette.mode === 'dark' ? '#1e1e1e' : '#ffc519',
                 borderBottom: '3px solid',
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                position: 'fixed',
              }}
             >
               <Toolbar>
