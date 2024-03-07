@@ -261,7 +261,7 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
     };
     const { editorHtml, htmlInput } = this.state;
     return (
-        <div style={styles.body}>
+        <Box component="section" sx={styles.body}>
           <header style={styles.header}>
             <text style={styles.titleText}>제목 : </text>
               {/* <label>
@@ -403,7 +403,7 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
                 </Button>
               </ButtonGroup>
             </footer>
-        </div>      
+        </Box>      
     );
   }
 }

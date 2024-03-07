@@ -9,6 +9,20 @@ import Footer from './component/footer/Footer';
 //모달 기능
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+//다크모드
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  }
+});
+const lightTheme = createTheme({
+  palette: {
+    mode: 'light',
+  }
+});
 
 type Notice = {
   id: string, //공지 식별자
@@ -38,6 +52,7 @@ type AppState = {
   selectedNoticeId?: string;
   // 모달 상태
   isModalOpen: boolean;
+  isdarkTheme: boolean;
 };
 
 class App extends React.Component<{}, AppState> {
@@ -46,6 +61,7 @@ class App extends React.Component<{}, AppState> {
     this.state = {
       currentScreen: 'list',
       isModalOpen: false,
+      isdarkTheme: false,
     };
   }
   //선택한 공지의 상세보기 화면을 표시하도록 상태를 업데이트
@@ -94,13 +110,27 @@ class App extends React.Component<{}, AppState> {
     this.setState({ isModalOpen: false, currentScreen: 'list' });
   };
 
+  handleThemes = () => {
+    if(this.state.isdarkTheme === true){
+      this.setState({
+        isdarkTheme : false
+      })
+    } else {
+      this.setState({
+        isdarkTheme : true
+      })
+    }
+  };
 
   render() {
     const { currentScreen, selectedNoticeId } = this.state;
-
     return (
-      <div className='App'>
-        <Header />        
+      <ThemeProvider theme={this.state.isdarkTheme ? darkTheme : lightTheme}>
+        <div className='App'>
+        <Header 
+          isdarkTheme={this.state.isdarkTheme}
+          onChangeTheme={this.handleThemes}
+        />        
         <main className='Mains'>
           {/* 리스트 화면 */}
           {currentScreen === 'list' && (
@@ -182,6 +212,7 @@ class App extends React.Component<{}, AppState> {
         </Modal>
         </div>        
       </div>
+      </ThemeProvider>
     );
   }
 }

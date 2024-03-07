@@ -14,6 +14,7 @@ import { mdiClose } from '@mdi/js';
 //mui
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
+import Box from '@mui/material/Box';
 
 
 type Notice = {
@@ -217,7 +218,7 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
   render() {
     const {title, content, date, noticeid, comments} = this.state;
     return (
-      <div style={styles.body}>
+      <Box component="section" sx={styles.body}>
         <header style={styles.header}>
           {/* 제목 날짜 */}
           <div style={styles.headerleft}>
@@ -350,7 +351,7 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
               </Button>
             </ButtonGroup>
         </footer>
-      </div>
+      </Box>
     );
   }
 }

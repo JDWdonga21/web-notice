@@ -1,6 +1,8 @@
 // NoticeList.tsx
 import React, {CSSProperties} from "react";
 
+import Box from '@mui/material/Box';
+
 
 type NoticeListprops = {
     onNoticeClick : (id: string) => void
@@ -61,7 +63,7 @@ class NoticeList extends React.Component<NoticeListprops, NoticeListState>{
 
     render(): React.ReactNode {
         return(
-            <div style={styles.body}>
+            <Box component="section" sx={styles.body}>
                 <header>
                     
                 </header>
@@ -82,7 +84,7 @@ class NoticeList extends React.Component<NoticeListprops, NoticeListState>{
                 <footer>
 
                 </footer>
-            </div>
+            </Box>
         )
     }
 }

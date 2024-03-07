@@ -10,6 +10,8 @@ import { mdiDelete } from '@mdi/js';
 //mui
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+
 
 import "../../App.css"
 
@@ -27,7 +29,7 @@ type Footerprops = {
 class Footer extends React.Component<Footerprops>{
     render(): React.ReactNode {
         return(
-            <div style={styles.body}>                
+            <Box component="section" sx={styles.body}>                
                 {this.props.appCurrentScreen === 'list' && (
                     // <div style={styles.listBtns} onClick={this.props.onAddNotice}>   
                     //     <Icon path={mdiPlusCircle}
@@ -108,7 +110,7 @@ class Footer extends React.Component<Footerprops>{
                         </div>
                     </div>
                 )} */}
-            </div>
+            </Box>
         )
     }
 }
