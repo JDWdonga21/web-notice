@@ -75,7 +75,7 @@ class Header extends React.Component<HeaderProps,{}>{
                 borderBottom: '3px solid',
                 alignItems: 'center',
                 justifyContent: 'center',
-                position: 'fixed',
+                // position: 'fixed',
              }}
             >
               <Toolbar>
