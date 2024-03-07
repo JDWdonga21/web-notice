@@ -15,6 +15,12 @@ import { mdiClose } from '@mdi/js';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import IconButton from '@mui/material/IconButton';
+import { mdiArrowLeft, mdiPencilOutline, mdiDeleteOutline } from '@mdi/js';
 
 
 type Notice = {
@@ -113,11 +119,6 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
    * 
    */
   // 댓글 입력 핸들러
-  // handleCommentChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-  //   this.setState({
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
   handleCommentChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const name = e.target.name as keyof NoticeDetailState;
     const value = e.target.value;
@@ -218,19 +219,19 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
   render() {
     const {title, content, date, noticeid, comments} = this.state;
     return (
-      <Box component="section" sx={styles.body}>
-        <header style={styles.header}>
+      <Box component="section" sx={{ width: '100%', padding: 2 }}>
+        {/* <header style={styles.header}> */}
           {/* 제목 날짜 */}
-          <div style={styles.headerleft}>
+          {/* <div style={styles.headerleft}>
             <div style={styles.titleArea}>
               <text style={styles.titleText}>{title}</text>
             </div>
             <div>
               <text style={{color: '#ffffff'}}>{this.formatDate(date)} 조회수: {noticeid}</text>
             </div>
-          </div>          
+          </div>           */}
           {/* 닫기 표시 */}
-          <div style={styles.headerRight} onClick={this.props.onBackToList}>
+          {/* <div style={styles.headerRight} onClick={this.props.onBackToList}>
             <Icon path={mdiClose}
               title="mdiClose"
               size={2}
@@ -238,13 +239,78 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
               vertical
               rotate={180}
               color="#ffffff"
-              // spin
             />
-          </div>
-        </header>    
-        <main style={styles.mainArea}>
-          <article style={styles.articleText} dangerouslySetInnerHTML={{ __html : content }} />
-        </main>
+          </div> */}
+        {/* </header>     */}
+        {/* <main style={styles.mainArea}> */}
+          {/* <article style={styles.articleText} dangerouslySetInnerHTML={{ __html : content }} /> */}
+          <Card variant="outlined" sx={{ width: '95vw', height: '80vh', }}>
+            <CardContent
+              sx={{
+                height: '10%',
+                borderBottom: (theme) =>
+                `1px solid ${theme.palette.mode === 'dark' ? '#ffffff' : '#000000'}`,
+              }}
+            >
+              <Typography variant="h5" component="div">
+                {title}
+              </Typography>
+              <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                {this.formatDate(date)} 조회수: {noticeid}
+              </Typography>
+            </CardContent>
+            <CardContent
+              sx={{
+                height: '70%',
+                borderBottom: (theme) =>
+                `1px solid ${theme.palette.mode === 'dark' ? '#ffffff' : '#000000'}`,
+              }}
+            >  
+              <Typography variant="body2" dangerouslySetInnerHTML={{ __html: content }} />
+            </CardContent>
+            <CardActions>
+              {/* <Button size="small" onClick={this.props.onBackToList}>목록으로</Button> */}
+              <ButtonGroup fullWidth variant="contained" aria-label="outlined primary button group">
+                <Button
+                  onClick={this.props.onEditNotice}
+                  sx={{
+                    width: '45vw',
+                    margin: 1
+                  }}
+                >
+                  <Icon path={mdiSquareEditOutline}
+                                    title="noticeIcon"
+                                    size={1}
+                                    horizontal
+                                    vertical
+                                    rotate={180}
+                                    color="black"
+                                    // spin
+                                />
+                  수정하기
+                </Button>
+                <Button
+                  onClick={() => this.props.id && this.props.onDelete(this.props.id)}
+                  sx={{
+                    width: '45vw',
+                    margin: 1
+                  }}
+                >
+                  <Icon path={mdiDelete}
+                                    title="noticeIcon"
+                                    size={1}
+                                    horizontal
+                                    vertical
+                                    rotate={180}
+                                    color="black"
+                                    // spin
+                                />
+                  삭제하기
+                </Button>
+              </ButtonGroup>
+            </CardActions>
+          </Card>
+        {/* </main> */}
         {/* 코맨트 코드 */}
         {/* <footer style={styles.footer}>
           {comments.map(comment => (
@@ -263,7 +329,7 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
           {this.renderCommentForm()}
         </footer> */}
         {/* 하단 버튼 모음 */}
-        <footer style={styles.footer}>
+        {/* <footer style={styles.footer}> */}
           {/* <div style={styles.detailBtns}>
             <div onClick={this.props.onBackToList}>
               <div style={styles.btnContainer}>
@@ -308,7 +374,7 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
               </div>
             </div>            
           </div> */}
-          <ButtonGroup
+          {/* <ButtonGroup
               size="large"
               variant="contained" 
               aria-label="Basic button group"
@@ -349,8 +415,8 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
                 />
                 삭제하기
               </Button>
-            </ButtonGroup>
-        </footer>
+            </ButtonGroup> */}
+        {/* </footer> */}
       </Box>
     );
   }

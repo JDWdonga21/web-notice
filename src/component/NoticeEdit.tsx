@@ -16,6 +16,10 @@ import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import Typography from '@mui/material/Typography';
 
 //공지 객체의 구조 정의
 type Notice = {
@@ -121,11 +125,6 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
     this.setState({ editorHtml: content, htmlInput: content }); // ReactQuill 변경 시 htmlInput도 업데이트
   };
 
-  // textarea 입력 변경사항을 처리하는 핸들러
-  // handleHtmlInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-  //   const htmlContent = e.target.value;
-  //   this.setState({ htmlInput: htmlContent, editorHtml: htmlContent }); // textarea 변경 시 editorHtml도 업데이트
-  // };
 
   /**
    * 
@@ -211,27 +210,6 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
     event.preventDefault();
     this.saveNotice();
   };
-  //사용자에게 HTML 입력을 요구
-  //제공된 HTML 내용을 현재 커서 위치에 ReactQuill 편집기에 삽입
-  // insertHtmlContent = () => {
-  //   const htmlContent = prompt("HTML 입력");
-  //   if(!htmlContent) return;
-
-  //   const quillInstance = this.quillRef.current?.getEditor();
-  //   if(quillInstance){
-  //       const range = quillInstance.getSelection();
-  //       if(range){
-  //           quillInstance.clipboard.dangerouslyPasteHTML(range.index, htmlContent);
-  //       }
-  //   }
-  // };
-  // handleHtmlInputChange2 = (e) => {
-  //   this.setState({ htmlInput: e.target.value });
-  // };
-
-  // applyHtml = () => {
-  //   this.setState({ editorHtml: this.state.htmlInput });
-  // };
   /**
    * **구조:** 헤더, 본문, 바닥글 섹션이 있는 `div`
     - **헤더:** 공지 제목을 위한 입력 필드가 있는 양식 포함
@@ -259,260 +237,233 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
         // ['code-block'], // This button will allow users to enter HTML tags
       ],
     };
-    const { editorHtml, htmlInput } = this.state;
+    const { title ,editorHtml, htmlInput } = this.state;
     return (
-        <Box component="section" sx={styles.body}>
-          <header style={styles.header}>
-            <text style={styles.titleText}>제목 : </text>
-              {/* <label>
-                <input
-                  type="text"
+        <Box component="section" sx={{ width: '100%', padding: 2 }}>
+          {/* <header style={styles.header}> */}
+            <Card variant="outlined" sx={{width: '95vw', height: '80vh'}}>
+              <CardContent
+                sx={{
+                  height: '10%',
+                  borderBottom: (theme) =>
+                  `1px solid ${theme.palette.mode === 'dark' ? '#ffffff' : '#000000'}`,
+                }}
+              >
+                <TextField 
+                  fullWidth label="제목" 
+                  id="fullWidth" 
                   value={this.state.title}
                   onChange={e => this.setState({ title: e.target.value })}
                 />
-              </label> */}
-            <Box
-              sx={{
-                width: 500,
-                maxWidth: '80%',
-                backgroundColor: '#ffffff'
-              }}
-            >
-              <TextField 
-                fullWidth label="제목" 
-                id="fullWidth" 
-                value={this.state.title}
-                onChange={e => this.setState({ title: e.target.value })}
-              />
-            </Box>
-          </header>
-          <main style={styles.mainArea}>   
-            <div style={styles.mainTitle}>
-              <text style={styles.titleText}>내용</text>
-            </div>            
-            <div style={styles.reactQuillContainer}>
-              
-              <ReactQuill
-                    modules={modules}
-                    theme="snow"
-                    style={{ width: '100%', height: '100%' }}
-                    value={editorHtml}
-                    onChange={this.handleEditorChange}
-              />
-            </div>  
-            <div style={styles.mainTitle}>
-              <text style={styles.titleText}>HTML 입력</text>
-            </div>           
-            <div style={styles.htmlInputContainer}>
-              
-              {/* <textarea
+              </CardContent>
+              <CardContent
+                sx={{
+                  height: '30%',
+                  borderBottom: (theme) =>
+                  `1px solid ${theme.palette.mode === 'dark' ? '#ffffff' : '#000000'}`,
+                }}
+              >
+                <Typography sx={{ mb: 1.5 }} color="text.secondary">내용</Typography>
+                <ReactQuill
+                      modules={modules}
+                      theme="snow"
+                      style={{ width: '100%', height: '30%' }}
+                      value={editorHtml}
+                      onChange={this.handleEditorChange}
+                />
+              </CardContent>
+              <CardContent
+                sx={{
+                  height: '30%',
+                  borderBottom: (theme) =>
+                  `1px solid ${theme.palette.mode === 'dark' ? '#ffffff' : '#000000'}`,
+                }}
+              >
+                <Typography sx={{ mb: 1.5 }} color="text.secondary">HTML 입력</Typography>
+                <TextField
+                  id="htmlInput"
+                  label="htmlInput"
+                  multiline
+                  rows={6}
                   value={htmlInput}
                   onChange={this.handleTextareaChange}
-                  // onChange={this.handleHtmlInputChange2}
-                  placeholder="HTML 코드를 여기에 입력하세요."
-                  style={styles.textarea}
-              />   */}
-              <TextField
-                id="htmlInput"
-                label="htmlInput"
-                multiline
-                rows={6}
-                // defaultValue="Default Value"
-                value={htmlInput}
-                onChange={this.handleTextareaChange}
-                sx={{
-                  width: '100%',
-                  // height: '100%',
-                  backgroundColor: '#ffffff'
-                }}
-              />
-            </div>
-            {/* <button onClick={()=> this.insertHtmlContent()}>HTML</button> */}
-          </main>           
-            <footer style={styles.footer}>
-                {/* <div style={styles.editBtns}>
-                    <div onClick={this.saveNotice}>
-                      <div style={styles.btnContainer}>
-                        <Icon path={mdiContentSave}
-                          title="noticeIcon"
-                          size={1}
-                          horizontal
-                          vertical
-                          rotate={180}
-                          color="black"
-                          // spin
-                        />
-                        <h3>저장하기</h3>
-                      </div>                        
-                    </div>
-                    <div onClick={this.props.onCancel}>
-                      <div style={styles.btnContainer}>
-                        <Icon path={mdiCancel}
-                          title="noticeIcon"
-                          size={1}
-                          horizontal
-                          vertical
-                          rotate={180}
-                          color="black"
-                          // spin
-                        />
-                        <h3>취소하기</h3>
-                      </div>                        
-                    </div>     
-                </div> */}
-              <ButtonGroup
-                size="large"
-                variant="contained" 
-                aria-label="Basic button group"
-              >
-                <Button
-                  onClick={this.saveNotice}
                   sx={{
-                    width: '45vw',
-                    margin: 1
+                    width: '100%',
+                    height: '30%'
+                    // backgroundColor: '#ffffff'
                   }}
-                >
-                  <Icon path={mdiContentSave}
-                    title="noticeIcon"
-                    size={1}
-                    horizontal
-                    vertical
-                    rotate={180}
-                    color="white"
-                    // spin
-                  />
-                  저장하기
-                </Button>
-                <Button
-                  onClick={this.props.onCancel}
-                  sx={{
-                    width: '45vw',
-                    margin: 1
-                  }}
-                >
-                  <Icon path={mdiCancel}
-                    title="noticeIcon"
-                    size={1}
-                    horizontal
-                    vertical
-                    rotate={180}
-                    color="white"
-                    // spin
-                  />
-                  취소하기
-                </Button>
-              </ButtonGroup>
-            </footer>
+                />
+              </CardContent> 
+              <CardActions>
+                <ButtonGroup fullWidth variant="contained" aria-label="outlined primary button group">
+                  <Button
+                    onClick={this.saveNotice}
+                    sx={{
+                      width: '45vw',
+                      margin: 1
+                    }}
+                  >
+                    <Icon path={mdiContentSave}
+                      title="noticeIcon"
+                      size={1}
+                      horizontal
+                      vertical
+                      rotate={180}
+                      color="white"
+                    />
+                    저장하기
+                  </Button>
+                  <Button
+                    onClick={this.props.onCancel}
+                    sx={{
+                      width: '45vw',
+                      margin: 1
+                    }}
+                  >
+                    <Icon path={mdiCancel}
+                      title="noticeIcon"
+                      size={1}
+                      horizontal
+                      vertical
+                      rotate={180}
+                      color="white"
+                      // spin
+                    />
+                    취소하기
+                  </Button>
+                </ButtonGroup>
+              </CardActions>
+              
+            </Card>
+          {/* </header> */}
+          {/* <main style={styles.mainArea}>    */}
+            {/* <div style={styles.mainTitle}> */}
+              
+            {/* </div>             */}
+            {/* <div style={styles.reactQuillContainer}> */}
+              
+            
+            {/* </div>   */}
+            {/* <div style={styles.mainTitle}> */}
+             
+            {/* </div>            */}
+            {/* <div style={styles.htmlInputContainer}> */}
+              
+            {/* </div> */}
+          {/* </main>            */}
+            {/* <footer style={styles.footer}> */}
+              
+            {/* </footer> */}
         </Box>      
     );
   }
 }
 const styles: {[key in string]: CSSProperties}= {
-  body: {
-      display: "flex",
-      flexDirection: 'column',
-      width: '100%',
-      height: '100%',
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: '#272727'
-  },
-  header: {
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-around',
-      padding: '10px',
-      marginLeft: '5%',
-      marginRight: '5%',
-      width: '94vw',        
-      borderBottom: '1px solid #ffffff',
-      height: '10%',
-      backgroundColor: '#1e1e1e'
-  },
-  titleArea: {
-    marginBottom: '10px'
-  },
-  titleText: {
-    display: 'flex',
-    textAlign: 'start',
-      fontWeight: 'bold',
-      fontSize: 20,
-      marginTop: '10px',
-      marginBottom: '10px',
-      color: '#ffffff'
-  },
-  mainArea: {
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: '5px',
-    marginLeft: '5%',
-    marginRight: '5%',
-    width: '94vw', 
-    height: '80%',
-    overflowY: 'auto',
-    flexGrow: 1, // 사용 가능한 공간을 모두 채움
-    backgroundColor: '#272727'
-  },
-  mainTitle: {
-    flex: 1, // ReactQuill에 비율을 할당
-    width: '100%',
-    paddingLeft: '10px',
-  },
-  reactQuillContainer: {
-    flex: 1, // ReactQuill에 비율을 할당
-    width: '100%',
-    minHeight: '200px', // ReactQuill의 최소 높이 설정
-    marginBottom: '20px',
-    overflowY: 'auto',
-    flexGrow: 1, // 사용 가능한 공간을 모두 채움
-    backgroundColor: '#ffffff'
-  },
-  htmlInputContainer: {
-    flex: 1, // textarea에 비율을 할당
-    width: '100%',
-    minHeight: '200px', // HTML 입력 영역의 최소 높이 설정
-    overflowY: 'auto',
-    flexGrow: 1, // 사용 가능한 공간을 모두 채움
-  },
-  // textarea 스타일 수정
-  textarea: {
-    width: '100%', // 너비를 컨테이너에 맞춤
-    height: '100%', // 높이를 부모 컨테이너에 맞춤
-  },
-  articleText: {
-    display: 'flex',
-    textAlign: 'start',
-    wordBreak: 'break-word',
-    overflowWrap: 'break-word',
-    whiteSpace: 'pre-wrap'
-  },
-  btnContainer : {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  footer : {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    borderTop: '2px solid #7e848f',
-    padding: '5px',
-    marginLeft: '5%',
-    marginRight: '5%',
-    width: '94vw', 
-    height: '10%',
-  },
-  editBtns: {
-    display: 'flex',
-        width: '94vw',
-        margin: '4px',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-around',
-  },
+  // body: {
+  //     display: "flex",
+  //     flexDirection: 'column',
+  //     width: '100%',
+  //     height: '100%',
+  //     alignItems: 'center',
+  //     justifyContent: 'center',
+  //     backgroundColor: '#272727'
+  // },
+  // header: {
+  //     display: 'flex',
+  //     flexDirection: 'row',
+  //     alignItems: 'center',
+  //     justifyContent: 'space-around',
+  //     padding: '10px',
+  //     marginLeft: '5%',
+  //     marginRight: '5%',
+  //     width: '94vw',        
+  //     borderBottom: '1px solid #ffffff',
+  //     height: '10%',
+  //     backgroundColor: '#1e1e1e'
+  // },
+  // titleArea: {
+  //   marginBottom: '10px'
+  // },
+  // titleText: {
+  //   display: 'flex',
+  //   textAlign: 'start',
+  //     fontWeight: 'bold',
+  //     fontSize: 20,
+  //     marginTop: '10px',
+  //     marginBottom: '10px',
+  //     color: '#ffffff'
+  // },
+  // mainArea: {
+  //   flex: 1,
+  //   display: 'flex',
+  //   flexDirection: 'column',
+  //   alignItems: 'center',
+  //   padding: '5px',
+  //   marginLeft: '5%',
+  //   marginRight: '5%',
+  //   width: '94vw', 
+  //   height: '80%',
+  //   overflowY: 'auto',
+  //   flexGrow: 1, // 사용 가능한 공간을 모두 채움
+  //   backgroundColor: '#272727'
+  // },
+  // mainTitle: {
+  //   flex: 1, // ReactQuill에 비율을 할당
+  //   width: '100%',
+  //   paddingLeft: '10px',
+  // },
+  // reactQuillContainer: {
+  //   flex: 1, // ReactQuill에 비율을 할당
+  //   width: '100%',
+  //   minHeight: '200px', // ReactQuill의 최소 높이 설정
+  //   marginBottom: '20px',
+  //   overflowY: 'auto',
+  //   flexGrow: 1, // 사용 가능한 공간을 모두 채움
+  //   backgroundColor: '#ffffff'
+  // },
+  // htmlInputContainer: {
+  //   flex: 1, // textarea에 비율을 할당
+  //   width: '100%',
+  //   minHeight: '200px', // HTML 입력 영역의 최소 높이 설정
+  //   overflowY: 'auto',
+  //   flexGrow: 1, // 사용 가능한 공간을 모두 채움
+  // },
+  // // textarea 스타일 수정
+  // textarea: {
+  //   width: '100%', // 너비를 컨테이너에 맞춤
+  //   height: '100%', // 높이를 부모 컨테이너에 맞춤
+  // },
+  // articleText: {
+  //   display: 'flex',
+  //   textAlign: 'start',
+  //   wordBreak: 'break-word',
+  //   overflowWrap: 'break-word',
+  //   whiteSpace: 'pre-wrap'
+  // },
+  // btnContainer : {
+  //   display: 'flex',
+  //   flexDirection: 'row',
+  //   alignItems: 'center',
+  // },
+  // footer : {
+  //   display: 'flex',
+  //   flexDirection: 'row',
+  //   alignItems: 'center',
+  //   justifyContent: 'space-around',
+  //   borderTop: '2px solid #7e848f',
+  //   padding: '5px',
+  //   marginLeft: '5%',
+  //   marginRight: '5%',
+  //   width: '94vw', 
+  //   height: '10%',
+  // },
+  // editBtns: {
+  //   display: 'flex',
+  //       width: '94vw',
+  //       margin: '4px',
+  //       flexDirection: 'row',
+  //       alignItems: 'center',
+  //       justifyContent: 'space-around',
+  // },
 }
 export default NoticeEdit;
