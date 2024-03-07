@@ -241,10 +241,10 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
     return (
         <Box component="section" sx={{ width: '100%', padding: 2 }}>
           {/* <header style={styles.header}> */}
-            <Card variant="outlined" sx={{width: '95vw', height: '80vh'}}>
+            <Card variant="outlined" sx={{width: '100vw', height: '80vh'}}>
               <CardContent
                 sx={{
-                  height: '10%',
+                  height: '7%',
                   borderBottom: (theme) =>
                   `1px solid ${theme.palette.mode === 'dark' ? '#ffffff' : '#000000'}`,
                 }}
@@ -258,7 +258,7 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
               </CardContent>
               <CardContent
                 sx={{
-                  height: '30%',
+                  height: '35%',
                   borderBottom: (theme) =>
                   `1px solid ${theme.palette.mode === 'dark' ? '#ffffff' : '#000000'}`,
                 }}
@@ -267,14 +267,14 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
                 <ReactQuill
                       modules={modules}
                       theme="snow"
-                      style={{ width: '100%', height: '30%' }}
+                      style={{ width: '100%', height: '50%' }}
                       value={editorHtml}
                       onChange={this.handleEditorChange}
                 />
               </CardContent>
               <CardContent
                 sx={{
-                  height: '30%',
+                  height: '35%',
                   borderBottom: (theme) =>
                   `1px solid ${theme.palette.mode === 'dark' ? '#ffffff' : '#000000'}`,
                 }}

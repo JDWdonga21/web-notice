@@ -29,7 +29,23 @@ type Footerprops = {
 class Footer extends React.Component<Footerprops>{
     render(): React.ReactNode {
         return(
-            <Box component="section" sx={styles.body}>                
+            <Box 
+                component="section" 
+                sx={{
+                    width: '100%',        
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    // backgroundColor: '#272727',
+                    borderTop: (theme) =>
+                    `1px solid ${theme.palette.mode === 'dark' ? '#ffffff' : '#000000'}`,
+                    position: 'fixed',
+                    paddingTop: '5px',
+                    paddingBottom: '5px',
+                    bottom: 0,
+                    left: 0, 
+                }}>                
                 {this.props.appCurrentScreen === 'list' && (
                     // <div style={styles.listBtns} onClick={this.props.onAddNotice}>   
                     //     <Icon path={mdiPlusCircle}

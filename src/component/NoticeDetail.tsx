@@ -244,10 +244,10 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
         {/* </header>     */}
         {/* <main style={styles.mainArea}> */}
           {/* <article style={styles.articleText} dangerouslySetInnerHTML={{ __html : content }} /> */}
-          <Card variant="outlined" sx={{ width: '95vw', height: '80vh', }}>
+          <Card variant="outlined" sx={{ width: '100vw', height: '80vh', }}>
             <CardContent
               sx={{
-                height: '10%',
+                height: '7%',
                 borderBottom: (theme) =>
                 `1px solid ${theme.palette.mode === 'dark' ? '#ffffff' : '#000000'}`,
               }}

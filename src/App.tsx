@@ -126,73 +126,38 @@ class App extends React.Component<{}, AppState> {
     const { currentScreen, selectedNoticeId } = this.state;
     return (
       <ThemeProvider theme={this.state.isdarkTheme ? darkTheme : lightTheme}>
-        <div className='App'>
-        <Header 
-          isdarkTheme={this.state.isdarkTheme}
-          onChangeTheme={this.handleThemes}
-        />        
-        <main className='Mains'>
-          {/* 리스트 화면 */}
-          {currentScreen === 'list' && (
-            <div>
-              <NoticeList onNoticeClick={this.handleNoticeClick} />
-              {/* <button onClick={this.handleAddNotice}>공지사항 추가</button> */}
-            </div>
-          )}
-          {/* 상세 화면 */}
-          {currentScreen === 'detail' && selectedNoticeId && (
-            <NoticeDetail 
-              id={selectedNoticeId} 
-              onBackToList={this.handleBackToList}
-              onEditNotice={() => this.handleEditNotice(selectedNoticeId)}
-              onDelete={this.handleDeleteNotice} 
-            />
-          )}
-          {/* 추가,편집 화면 */}
-          {currentScreen === 'edit' && (
-            <NoticeEdit 
-              id={selectedNoticeId}
-              onNoticeAdded = {this.handleNoticeAdded}  
-              onCancel={this.handleNoticeAdded}        
-            />
-          )}
-        </main>
-        <Footer
-          appCurrentScreen = {this.state.currentScreen}
-          onAddNotice = {this.handleAddNotice}
-          selectedNoticeId={selectedNoticeId} 
-          onBackToList={this.handleBackToList}
-          onEditNotice={() => this.handleEditNotice(selectedNoticeId)}
-          onDelete={this.handleDeleteNotice}
-          onCancel={this.handleNoticeAdded}
-        />   
-        {/* NoticeEdit 모달 */}
-        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-          <Modal
-            open={this.state.isModalOpen}
-            onClose={this.handleCloseModal}
-            style={{ border: 'none', overflow: 'hidden' }}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-          <Box sx={{ 
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            display: 'flex',
+        <Container 
+          maxWidth="lg" 
+          sx={{
+            height: '100vh',
             alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: '#ffffff',
-            height: '80vh',
-            border: '2px solid #000000'
-            // width: '90vw',
-          }}>
-            {/* <NoticeEdit
-              id={selectedNoticeId}
-              onNoticeAdded={this.handleNoticeAdded}
-              onCancel={this.handleCloseModal}
-            /> */}
+            justifyContent: 'space-between',
+            margin: '0 auto',
+            padding: '0',
+            backgroundColor: 'background.default'
+        }}>
+          <Header 
+            isdarkTheme={this.state.isdarkTheme}
+            onChangeTheme={this.handleThemes}
+          />        
+          <main className='Mains'>
+            {/* 리스트 화면 */}
+            {currentScreen === 'list' && (
+              <div>
+                <NoticeList onNoticeClick={this.handleNoticeClick} />
+                {/* <button onClick={this.handleAddNotice}>공지사항 추가</button> */}
+              </div>
+            )}
+            {/* 상세 화면 */}
+            {currentScreen === 'detail' && selectedNoticeId && (
+              <NoticeDetail 
+                id={selectedNoticeId} 
+                onBackToList={this.handleBackToList}
+                onEditNotice={() => this.handleEditNotice(selectedNoticeId)}
+                onDelete={this.handleDeleteNotice} 
+              />
+            )}
+            {/* 추가,편집 화면 */}
             {currentScreen === 'edit' && (
               <NoticeEdit 
                 id={selectedNoticeId}
@@ -200,18 +165,56 @@ class App extends React.Component<{}, AppState> {
                 onCancel={this.handleNoticeAdded}        
               />
             )}
-            {currentScreen === 'detail' && selectedNoticeId && (
-              <NoticeDetail 
-                id={selectedNoticeId} 
-                onBackToList={this.handleBackToList}
-                onEditNotice={() => this.handleEditNotice(selectedNoticeId)}
-                onDelete={this.handleDeleteNotice}
-              />
-            )}
-          </Box>
-        </Modal>
+          </main>
+          <Footer
+            appCurrentScreen = {this.state.currentScreen}
+            onAddNotice = {this.handleAddNotice}
+            selectedNoticeId={selectedNoticeId} 
+            onBackToList={this.handleBackToList}
+            onEditNotice={() => this.handleEditNotice(selectedNoticeId)}
+            onDelete={this.handleDeleteNotice}
+            onCancel={this.handleNoticeAdded}
+          />   
+          {/* NoticeEdit 모달 */}
+          <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+            <Modal
+              open={this.state.isModalOpen}
+              onClose={this.handleCloseModal}
+              style={{ border: 'none', overflow: 'hidden' }}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+            <Box sx={{ 
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: '#ffffff',
+              height: '80vh',
+              border: '2px solid #000000'
+            }}>
+              {currentScreen === 'edit' && (
+                <NoticeEdit 
+                  id={selectedNoticeId}
+                  onNoticeAdded = {this.handleNoticeAdded}  
+                  onCancel={this.handleNoticeAdded}        
+                />
+              )}
+              {currentScreen === 'detail' && selectedNoticeId && (
+                <NoticeDetail 
+                  id={selectedNoticeId} 
+                  onBackToList={this.handleBackToList}
+                  onEditNotice={() => this.handleEditNotice(selectedNoticeId)}
+                  onDelete={this.handleDeleteNotice}
+                />
+              )}
+            </Box>
+          </Modal>
         </div>        
-      </div>
+      </Container>
       </ThemeProvider>
     );
   }
