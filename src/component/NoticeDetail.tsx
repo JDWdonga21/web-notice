@@ -258,6 +258,18 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
               <Typography sx={{ mb: 1.5 }} color="text.secondary">
                 {this.formatDate(date)} 조회수: {noticeid}
               </Typography>
+              <Box 
+                onClick={this.props.onBackToList}
+                sx={{position: 'absolute', top: '2%', right: '5%'}}
+              >
+                <Icon path={mdiClose}
+                  title="mdiClose"
+                  size={2}
+                  horizontal
+                  vertical
+                  rotate={180}
+                />
+              </Box>                
             </CardContent>
             <CardContent
               sx={{
@@ -284,7 +296,7 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
                                     horizontal
                                     vertical
                                     rotate={180}
-                                    color="black"
+                                    color="white"
                                     // spin
                                 />
                   수정하기
@@ -302,7 +314,7 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
                                     horizontal
                                     vertical
                                     rotate={180}
-                                    color="black"
+                                    color="white"
                                     // spin
                                 />
                   삭제하기
