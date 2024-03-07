@@ -2,7 +2,10 @@
 import React, {CSSProperties} from "react";
 
 import Box from '@mui/material/Box';
-
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import Typography from '@mui/material/Typography';
 
 type NoticeListprops = {
     onNoticeClick : (id: string) => void
@@ -63,27 +66,26 @@ class NoticeList extends React.Component<NoticeListprops, NoticeListState>{
 
     render(): React.ReactNode {
         return(
-            <Box component="section" sx={styles.body}>
-                <header>
-                    
-                </header>
-                <main>
-                    {/* **공지 표시:** `main` 섹션 내부에서 `this.state.notices` 배열을 반복 */}
-                    {this.state.notices.map(notice => (
-                        // `onClick` 핸들러를 설정하여 `notice.id`와 함께 `onNoticeClick` prop 함수 (부모 `App` 컴포넌트에서 전달됨)를 호출
-                        <div style={styles.noticeList} key={notice.id} onClick={() => this.props.onNoticeClick(notice.id)}>
-                            <div style={styles.titleArea}>
-                                <text style={styles.titleText}>{notice.title}</text>
-                            </div>                            
-                            <div style={styles.dateArea}>
-                                <text>{this.formatDate(notice.date)}</text>
-                            </div>                            
-                        </div>
-                    ))}
-                </main>
-                <footer>
-
-                </footer>
+            <Box sx={{ width: '100vw', height: '85vh', bgcolor: 'background.paper' }}>
+                {/* **공지 표시:** `main` 섹션 내부에서 `this.state.notices` 배열을 반복 */}
+                    <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+                        <List>
+                            {this.state.notices.map((notice) => (
+                                <ListItem 
+                                    onClick={() => this.props.onNoticeClick(notice.id)} 
+                                    key={notice.id} 
+                                    sx={{
+                                        borderBottom: (theme) =>
+                                        `1px solid ${theme.palette.mode === 'dark' ? '#ffffff' : '#000000'}`,
+                                    }}>
+                                        <ListItemText 
+                                            primary={<Typography variant="h5" sx={{ color: 'text.primary' }}>{notice.title}</Typography>} 
+                                            secondary={this.formatDate(notice.date)} 
+                                        />
+                                </ListItem>
+                            ))}
+                        </List>
+                    </Box>
             </Box>
         )
     }
@@ -105,7 +107,7 @@ const styles: {[key in string]: CSSProperties}= {
         marginBottom: '5px',
         width: '94vw',
         // borderRight: '2px solid #282c34',
-        borderBottom: '1px solid #7b879e',
+        
         // backgroundColor: 'azure',
     },
     titleArea: {
