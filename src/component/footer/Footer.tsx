@@ -49,18 +49,6 @@ class Footer extends React.Component<Footerprops>{
                     left: 0, 
                 }}>                
                 {this.props.appCurrentScreen === 'list' && (
-                    // <div style={styles.listBtns} onClick={this.props.onAddNotice}>   
-                    //     <Icon path={mdiPlusCircle}
-                    //         title="noticeIcon"
-                    //         size={1}
-                    //         horizontal
-                    //         vertical
-                    //         // rotate={180}
-                    //         color="black"
-                    //         // spin
-                    //     />                 
-                    //     <h3>공지사항 추가</h3>
-                    // </div>
                     <Button 
                         size='large' 
                         variant="contained"

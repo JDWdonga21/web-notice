@@ -192,8 +192,7 @@ class App extends React.Component<{}, AppState> {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              backgroundColor: '#ffffff',
-              height: '80vh',
+              // height: '80vh',
               border: '2px solid #000000'
             }}>
               {currentScreen === 'edit' && (

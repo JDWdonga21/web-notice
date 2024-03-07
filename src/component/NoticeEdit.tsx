@@ -239,9 +239,16 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
     };
     const { title ,editorHtml, htmlInput } = this.state;
     return (
-        <Box component="section" sx={{ width: '100%', padding: 2 }}>
+        <Box component="section" sx={{ 
+          width: '100%',
+          backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#3d3d3d' : '#ffffff' ,
+        }}>
           {/* <header style={styles.header}> */}
-            <Card variant="outlined" sx={{width: '100vw', height: '80vh'}}>
+            <Card variant="outlined" sx={{
+              width: '100vw', 
+              height: '80vh',
+              backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#3d3d3d' : '#ffffff' ,
+            }}>
               <CardContent
                 sx={{
                   height: '7%',
@@ -259,6 +266,7 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
               <CardContent
                 sx={{
                   height: '35%',
+                  backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#575757' : '#ffffff' ,
                   borderBottom: (theme) =>
                   `1px solid ${theme.palette.mode === 'dark' ? '#ffffff' : '#000000'}`,
                 }}
@@ -267,7 +275,11 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
                 <ReactQuill
                       modules={modules}
                       theme="snow"
-                      style={{ width: '100%', height: '50%' }}
+                      style={{ 
+                        width: '100%', 
+                        height: '50%',
+                        color: `(theme) => theme.palette.mode === 'dark' ? '#000000' : '#ffffff'`
+                      }}
                       value={editorHtml}
                       onChange={this.handleEditorChange}
                 />
@@ -275,6 +287,7 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
               <CardContent
                 sx={{
                   height: '35%',
+                  backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#575757' : '#ffffff' ,
                   borderBottom: (theme) =>
                   `1px solid ${theme.palette.mode === 'dark' ? '#ffffff' : '#000000'}`,
                 }}
