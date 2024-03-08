@@ -285,6 +285,7 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
                 backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#575757' : '#ffffff' ,
                 borderBottom: (theme) =>
                 `1px solid ${theme.palette.mode === 'dark' ? '#ffffff' : '#000000'}`,
+                overflow: 'auto',
               }}
             >  
               <Typography variant="body2" dangerouslySetInnerHTML={{ __html: content }} />

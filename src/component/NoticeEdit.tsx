@@ -279,7 +279,8 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
                       theme="snow"
                       style={{ 
                         width: '100%', 
-                        height: '50%',
+                        maxHeight: '50%',
+                        overflow: 'auto',
                         color: `(theme) => theme.palette.mode === 'dark' ? '#000000' : '#ffffff'`
                       }}
                       value={editorHtml}
