@@ -243,7 +243,6 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
           width: '100%',
           backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#3d3d3d' : '#ffffff' ,
         }}>
-          {/* <header style={styles.header}> */}
             <Card variant="outlined" sx={{
               width: '100vw', 
               maxHeight: '80vh',
@@ -351,135 +350,8 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
               </CardActions>
               
             </Card>
-          {/* </header> */}
-          {/* <main style={styles.mainArea}>    */}
-            {/* <div style={styles.mainTitle}> */}
-              
-            {/* </div>             */}
-            {/* <div style={styles.reactQuillContainer}> */}
-              
-            
-            {/* </div>   */}
-            {/* <div style={styles.mainTitle}> */}
-             
-            {/* </div>            */}
-            {/* <div style={styles.htmlInputContainer}> */}
-              
-            {/* </div> */}
-          {/* </main>            */}
-            {/* <footer style={styles.footer}> */}
-              
-            {/* </footer> */}
         </Box>      
     );
   }
-}
-const styles: {[key in string]: CSSProperties}= {
-  // body: {
-  //     display: "flex",
-  //     flexDirection: 'column',
-  //     width: '100%',
-  //     height: '100%',
-  //     alignItems: 'center',
-  //     justifyContent: 'center',
-  //     backgroundColor: '#272727'
-  // },
-  // header: {
-  //     display: 'flex',
-  //     flexDirection: 'row',
-  //     alignItems: 'center',
-  //     justifyContent: 'space-around',
-  //     padding: '10px',
-  //     marginLeft: '5%',
-  //     marginRight: '5%',
-  //     width: '94vw',        
-  //     borderBottom: '1px solid #ffffff',
-  //     height: '10%',
-  //     backgroundColor: '#1e1e1e'
-  // },
-  // titleArea: {
-  //   marginBottom: '10px'
-  // },
-  // titleText: {
-  //   display: 'flex',
-  //   textAlign: 'start',
-  //     fontWeight: 'bold',
-  //     fontSize: 20,
-  //     marginTop: '10px',
-  //     marginBottom: '10px',
-  //     color: '#ffffff'
-  // },
-  // mainArea: {
-  //   flex: 1,
-  //   display: 'flex',
-  //   flexDirection: 'column',
-  //   alignItems: 'center',
-  //   padding: '5px',
-  //   marginLeft: '5%',
-  //   marginRight: '5%',
-  //   width: '94vw', 
-  //   height: '80%',
-  //   overflowY: 'auto',
-  //   flexGrow: 1, // 사용 가능한 공간을 모두 채움
-  //   backgroundColor: '#272727'
-  // },
-  // mainTitle: {
-  //   flex: 1, // ReactQuill에 비율을 할당
-  //   width: '100%',
-  //   paddingLeft: '10px',
-  // },
-  // reactQuillContainer: {
-  //   flex: 1, // ReactQuill에 비율을 할당
-  //   width: '100%',
-  //   minHeight: '200px', // ReactQuill의 최소 높이 설정
-  //   marginBottom: '20px',
-  //   overflowY: 'auto',
-  //   flexGrow: 1, // 사용 가능한 공간을 모두 채움
-  //   backgroundColor: '#ffffff'
-  // },
-  // htmlInputContainer: {
-  //   flex: 1, // textarea에 비율을 할당
-  //   width: '100%',
-  //   minHeight: '200px', // HTML 입력 영역의 최소 높이 설정
-  //   overflowY: 'auto',
-  //   flexGrow: 1, // 사용 가능한 공간을 모두 채움
-  // },
-  // // textarea 스타일 수정
-  // textarea: {
-  //   width: '100%', // 너비를 컨테이너에 맞춤
-  //   height: '100%', // 높이를 부모 컨테이너에 맞춤
-  // },
-  // articleText: {
-  //   display: 'flex',
-  //   textAlign: 'start',
-  //   wordBreak: 'break-word',
-  //   overflowWrap: 'break-word',
-  //   whiteSpace: 'pre-wrap'
-  // },
-  // btnContainer : {
-  //   display: 'flex',
-  //   flexDirection: 'row',
-  //   alignItems: 'center',
-  // },
-  // footer : {
-  //   display: 'flex',
-  //   flexDirection: 'row',
-  //   alignItems: 'center',
-  //   justifyContent: 'space-around',
-  //   borderTop: '2px solid #7e848f',
-  //   padding: '5px',
-  //   marginLeft: '5%',
-  //   marginRight: '5%',
-  //   width: '94vw', 
-  //   height: '10%',
-  // },
-  // editBtns: {
-  //   display: 'flex',
-  //       width: '94vw',
-  //       margin: '4px',
-  //       flexDirection: 'row',
-  //       alignItems: 'center',
-  //       justifyContent: 'space-around',
-  // },
 }
 export default NoticeEdit;
