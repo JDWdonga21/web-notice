@@ -129,6 +129,7 @@ class App extends React.Component<{}, AppState> {
         <Container 
           maxWidth="lg" 
           sx={{
+            width: '100vw',
             height: '100vh',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -140,7 +141,14 @@ class App extends React.Component<{}, AppState> {
             isdarkTheme={this.state.isdarkTheme}
             onChangeTheme={this.handleThemes}
           />        
-          <main className='Mains'>
+          <Box
+            position="static"
+            sx={{
+              position: 'fixed',
+              top: '10vh',
+              left: 0,
+            }}
+          >
             {/* 리스트 화면 */}
             {currentScreen === 'list' && (
               <div>
@@ -165,7 +173,7 @@ class App extends React.Component<{}, AppState> {
                 onCancel={this.handleNoticeAdded}        
               />
             )}
-          </main>
+          </Box>
           <Footer
             appCurrentScreen = {this.state.currentScreen}
             onAddNotice = {this.handleAddNotice}

@@ -33,7 +33,7 @@ class Footer extends React.Component<Footerprops>{
             <Box 
                 component="section" 
                 sx={{
-                    width: '100%',
+                    width: '100vw',
                     bgcolor: (theme) => theme.palette.mode === 'dark' ? '#272727' : '#ffefc1',        
                     display: 'flex',
                     flexDirection: 'row',

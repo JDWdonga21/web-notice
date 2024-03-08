@@ -246,7 +246,10 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
           {/* <header style={styles.header}> */}
             <Card variant="outlined" sx={{
               width: '100vw', 
-              height: '80vh',
+              maxHeight: '80vh',
+              height: 'auto',
+              minHeight: '50vh',
+              overflow: 'auto',
               backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#3d3d3d' : '#ffffff' ,
             }}>
               <CardContent

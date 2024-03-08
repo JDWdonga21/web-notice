@@ -70,12 +70,17 @@ class Header extends React.Component<HeaderProps,{}>{
               color="default"
               elevation={0} 
               sx={ {
+                width: '100vw',
+                height: '10vh',
                 paddingTop: '15px',
                 bgcolor: (theme) => theme.palette.mode === 'dark' ? '#1e1e1e' : '#ffc519',
                 borderBottom: '3px solid',
                 alignItems: 'center',
                 justifyContent: 'center',
-                // position: 'fixed',
+                position: 'fixed',
+                top: 0,
+                left: 0, 
+                display: 'flex',
              }}
             >
               <Toolbar>
