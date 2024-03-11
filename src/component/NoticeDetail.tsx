@@ -221,119 +221,90 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
     return (
       <Box component="section" sx={{ 
         width: '100%', 
-        // padding: 2,
         backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#3d3d3d' : '#ffffff' ,
       }}>
-        {/* <header style={styles.header}> */}
-          {/* 제목 날짜 */}
-          {/* <div style={styles.headerleft}>
-            <div style={styles.titleArea}>
-              <text style={styles.titleText}>{title}</text>
-            </div>
-            <div>
-              <text style={{color: '#ffffff'}}>{this.formatDate(date)} 조회수: {noticeid}</text>
-            </div>
-          </div>           */}
-          {/* 닫기 표시 */}
-          {/* <div style={styles.headerRight} onClick={this.props.onBackToList}>
-            <Icon path={mdiClose}
-              title="mdiClose"
-              size={2}
-              horizontal
-              vertical
-              rotate={180}
-              color="#ffffff"
-            />
-          </div> */}
-        {/* </header>     */}
-        {/* <main style={styles.mainArea}> */}
-          {/* <article style={styles.articleText} dangerouslySetInnerHTML={{ __html : content }} /> */}
-          <Card variant="outlined" sx={{ 
-            width: '100vw', 
-            height: '80vh',
-            backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#3d3d3d' : '#ffffff' ,
-          }}>
-            <CardContent
-              sx={{
-                height: '7%',
-                borderBottom: (theme) =>
-                `1px solid ${theme.palette.mode === 'dark' ? '#ffffff' : '#000000'}`,
-              }}
+        <Card variant="outlined" sx={{ 
+          width: '100vw', 
+          height: '80vh',
+          overflow: 'auto',
+          backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#3d3d3d' : '#ffffff' ,
+        }}>
+          <CardContent
+            sx={{
+              height: '7%',
+              borderBottom: (theme) =>
+              `1px solid ${theme.palette.mode === 'dark' ? '#ffffff' : '#000000'}`,
+            }}
+          >
+            <Typography variant="h5" component="div">
+              {title}
+            </Typography>
+            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+              {this.formatDate(date)} 조회수: {noticeid}
+            </Typography>
+            <Box 
+              onClick={this.props.onBackToList}
+              sx={{position: 'absolute', top: '2%', right: '5%'}}
             >
-              <Typography variant="h5" component="div">
-                {title}
-              </Typography>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                {this.formatDate(date)} 조회수: {noticeid}
-              </Typography>
-              <Box 
-                onClick={this.props.onBackToList}
-                sx={{position: 'absolute', top: '2%', right: '5%'}}
+              <Icon path={mdiClose}
+                title="mdiClose"
+                size={2}
+                horizontal
+                vertical
+                rotate={180}
+              />
+            </Box>                
+          </CardContent>
+          <CardContent
+            sx={{
+              height: '75%',
+              backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#575757' : '#ffffff' ,
+              borderBottom: (theme) =>
+              `1px solid ${theme.palette.mode === 'dark' ? '#ffffff' : '#000000'}`,
+              overflow: 'auto',
+            }}
+          >  
+            <Typography variant="body2" dangerouslySetInnerHTML={{ __html: content }} />
+          </CardContent>
+          <CardActions>
+            <ButtonGroup fullWidth variant="contained" aria-label="outlined primary button group">
+              <Button
+                onClick={this.props.onEditNotice}
+                sx={{
+                  width: '45vw',
+                  margin: 1
+                }}
               >
-                <Icon path={mdiClose}
-                  title="mdiClose"
-                  size={2}
+                <Icon path={mdiSquareEditOutline}
+                  title="noticeIcon"
+                  size={1}
                   horizontal
                   vertical
                   rotate={180}
+                  color="white"
                 />
-              </Box>                
-            </CardContent>
-            <CardContent
-              sx={{
-                height: '75%',
-                backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#575757' : '#ffffff' ,
-                borderBottom: (theme) =>
-                `1px solid ${theme.palette.mode === 'dark' ? '#ffffff' : '#000000'}`,
-                overflow: 'auto',
-              }}
-            >  
-              <Typography variant="body2" dangerouslySetInnerHTML={{ __html: content }} />
-            </CardContent>
-            <CardActions
-
-            >
-              <ButtonGroup fullWidth variant="contained" aria-label="outlined primary button group">
-                <Button
-                  onClick={this.props.onEditNotice}
-                  sx={{
-                    width: '45vw',
-                    margin: 1
-                  }}
-                >
-                  <Icon path={mdiSquareEditOutline}
-                                    title="noticeIcon"
-                                    size={1}
-                                    horizontal
-                                    vertical
-                                    rotate={180}
-                                    color="white"
-                                    // spin
-                                />
-                  수정하기
-                </Button>
-                <Button
-                  onClick={() => this.props.id && this.props.onDelete(this.props.id)}
-                  sx={{
-                    width: '45vw',
-                    margin: 1
-                  }}
-                >
-                  <Icon path={mdiDelete}
-                                    title="noticeIcon"
-                                    size={1}
-                                    horizontal
-                                    vertical
-                                    rotate={180}
-                                    color="white"
-                                    // spin
-                                />
-                  삭제하기
-                </Button>
-              </ButtonGroup>
-            </CardActions>
-          </Card>
-        {/* </main> */}
+                수정하기
+              </Button>
+              <Button
+                onClick={() => this.props.id && this.props.onDelete(this.props.id)}
+                sx={{
+                  width: '45vw',
+                  margin: 1
+                }}
+              >
+                <Icon path={mdiDelete}
+                  title="noticeIcon"
+                  size={1}
+                  horizontal
+                  vertical
+                  rotate={180}
+                  color="white"
+                />
+                삭제하기
+              </Button>
+            </ButtonGroup>
+          </CardActions>
+        </Card>
         {/* 코맨트 코드 */}
         {/* <footer style={styles.footer}>
           {comments.map(comment => (

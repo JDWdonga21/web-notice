@@ -261,7 +261,6 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
               width: '100vw', 
               maxHeight: '80vh',
               height: 'auto',
-              // minHeight: '50vh',
               overflow: 'auto',
               backgroundColor: (theme) => theme.palette.mode === 'dark' ? '#3d3d3d' : '#ffffff' ,
             }}>
