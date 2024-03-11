@@ -153,6 +153,21 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
     this.updateContentFromTextarea(html);
   };
   /**
+   * 제목 입력, 저장시 글자 수 체크 (20자)
+   */
+  chkStringLength = (_inputText : string) => {
+    const maximumLength = 15;
+    if (_inputText.length >= maximumLength){
+      alert("제목의 길이는 15자 미만으로 해주세요.");
+      return;
+    } else{
+      this.setState({
+        title : _inputText,
+      })
+    }
+  }
+
+  /**
     - 유효성 검사 수행 (빈 제목 또는 내용 확인)
     - `newNotice` 객체 생성
     - `id`가 제공된 여부에 따라 (편집 또는 새 공지) `localStorage` 업데이트
@@ -262,7 +277,8 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
                   fullWidth label="제목" 
                   id="fullWidth" 
                   value={this.state.title}
-                  onChange={e => this.setState({ title: e.target.value })}
+                  //onChange={e => this.setState({ title: e.target.value })}
+                  onChange={e => this.chkStringLength(e.target.value)}
                 />
               </CardContent>
               <CardContent
