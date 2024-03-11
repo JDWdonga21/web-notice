@@ -159,12 +159,11 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
     const maximumLength = 15;
     if (_inputText.length >= maximumLength){
       alert("제목의 길이는 15자 미만으로 해주세요.");
-      return;
-    } else{
-      this.setState({
-        title : _inputText,
-      })
+      _inputText = _inputText.slice(0, maximumLength);
     }
+    this.setState({
+      title : _inputText,
+    })    
   }
 
   /**
