@@ -234,17 +234,29 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
               height: '7%',
               borderBottom: (theme) =>
               `1px solid ${theme.palette.mode === 'dark' ? '#ffffff' : '#000000'}`,
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between'
             }}
           >
-            <Typography variant="h5" component="div">
-              {title}
-            </Typography>
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
-              {this.formatDate(date)} 조회수: {noticeid}
-            </Typography>
+            <Box
+              sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center'}}
+            >
+              <Typography variant="h5" component="div">
+                {title}
+              </Typography>
+              <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                {this.formatDate(date)} 조회수: {noticeid}
+              </Typography>
+            </Box>            
             <Box 
               onClick={this.props.onBackToList}
-              sx={{position: 'absolute', top: '2%', right: '5%'}}
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
             >
               <Icon path={mdiClose}
                 title="mdiClose"
