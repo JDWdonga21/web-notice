@@ -111,14 +111,22 @@ class App extends React.Component<{}, AppState> {
   };
 
   handleThemes = () => {
-    if(this.state.isdarkTheme === true){
-      this.setState({
-        isdarkTheme : false
-      })
-    } else {
-      this.setState({
-        isdarkTheme : true
-      })
+    // if(this.state.isdarkTheme === true){
+    //   this.setState({
+    //     isdarkTheme : false
+    //   })
+    // } else {
+    //   this.setState({
+    //     isdarkTheme : true
+    //   })
+    // }
+    const newDarkModeState = !this.state.isdarkTheme;
+    this.setState({
+      isdarkTheme: newDarkModeState
+    });
+    // React Native로 다크 모드 상태 전송
+    if (window.ReactNativeWebView) {
+      window.ReactNativeWebView.postMessage(JSON.stringify({ isdarkTheme: newDarkModeState }));
     }
   };
 
