@@ -107,7 +107,7 @@ class App extends React.Component<{}, AppState> {
   };
 
   handleCloseModal = () => {
-    this.setState({ isModalOpen: false, currentScreen: 'list' });
+    // this.setState({ isModalOpen: false, currentScreen: 'list' });
   };
 
   handleThemes = () => {
@@ -143,7 +143,8 @@ class App extends React.Component<{}, AppState> {
             justifyContent: 'space-between',
             margin: '0 auto',
             padding: '0',
-            backgroundColor: 'background.default'
+            backgroundColor: 'background.default',
+            zIndex: 2
         }}>
           <Header 
             isdarkTheme={this.state.isdarkTheme}
@@ -166,20 +167,22 @@ class App extends React.Component<{}, AppState> {
             )}
             {/* 상세 화면 */}
             {currentScreen === 'detail' && selectedNoticeId && (
-              <NoticeDetail 
-                id={selectedNoticeId} 
-                onBackToList={this.handleBackToList}
-                onEditNotice={() => this.handleEditNotice(selectedNoticeId)}
-                onDelete={this.handleDeleteNotice} 
-              />
+              // <NoticeDetail 
+              //   id={selectedNoticeId} 
+              //   onBackToList={this.handleBackToList}
+              //   onEditNotice={() => this.handleEditNotice(selectedNoticeId)}
+              //   onDelete={this.handleDeleteNotice} 
+              // />
+              <div></div>
             )}
             {/* 추가,편집 화면 */}
             {currentScreen === 'edit' && (
-              <NoticeEdit 
-                id={selectedNoticeId}
-                onNoticeAdded = {this.handleNoticeAdded}  
-                onCancel={this.handleNoticeAdded}        
-              />
+              // <NoticeEdit 
+              //   id={selectedNoticeId}
+              //   onNoticeAdded = {this.handleNoticeAdded}  
+              //   onCancel={this.handleNoticeAdded}        
+              // />
+              <div></div>
             )}
           </Box>
           <Footer
@@ -191,8 +194,10 @@ class App extends React.Component<{}, AppState> {
             onDelete={this.handleDeleteNotice}
             onCancel={this.handleNoticeAdded}
           />   
-          {/* NoticeEdit 모달 */}
-          <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                  
+      </Container>
+      {/* NoticeEdit 모달 */}
+        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1}}>
             <Modal
               open={this.state.isModalOpen}
               onClose={this.handleCloseModal}
@@ -209,7 +214,8 @@ class App extends React.Component<{}, AppState> {
               alignItems: 'center',
               justifyContent: 'center',
               // height: '80vh',
-              border: '2px solid #000000'
+              border: '2px solid #000000',
+              zIndex: 1
             }}>
               {currentScreen === 'edit' && (
                 <NoticeEdit 
@@ -228,8 +234,7 @@ class App extends React.Component<{}, AppState> {
               )}
             </Box>
           </Modal>
-        </div>        
-      </Container>
+        </div>
       </ThemeProvider>
     );
   }
