@@ -64,6 +64,12 @@ class App extends React.Component<{}, AppState> {
       isdarkTheme: false,
     };
   }
+  componentDidMount(): void {
+    const newDarkModeState = this.state.isdarkTheme;
+    if (window.ReactNativeWebView) {
+      window.ReactNativeWebView.postMessage(JSON.stringify({ isdarkTheme: newDarkModeState }));
+    }
+  }
   //선택한 공지의 상세보기 화면을 표시하도록 상태를 업데이트
   handleNoticeClick = (id: string) => {
     this.setState({ isModalOpen: true, currentScreen: 'detail', selectedNoticeId: id });
