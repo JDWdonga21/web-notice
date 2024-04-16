@@ -1,10 +1,12 @@
 // NoticeEdit.tsx
 import React, {
-    useMemo, 
-    useRef,
-    CSSProperties
+    // useMemo, 
+    // useRef,
+    // CSSProperties
 } from 'react';
-import ReactQuill, {Quill} from 'react-quill';
+import ReactQuill, {
+  // Quill
+} from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import debounce from 'lodash.debounce';
 //아이콘
@@ -56,24 +58,24 @@ type NoticeEditState = {
   htmlInput: string; // 사용자가 입력한 HTML (textarea)
 };
 
-const formats = [
-    'font',
-  'header',
-  'bold',
-  'italic',
-  'underline',
-  'strike',
-  'blockquote',
-  'list',
-  'bullet',
-  'indent',
-  'link',
-  'align',
-  'color',
-  'background',
-  'size',
-  'h1',
-]
+// const formats = [
+//     'font',
+//   'header',
+//   'bold',
+//   'italic',
+//   'underline',
+//   'strike',
+//   'blockquote',
+//   'list',
+//   'bullet',
+//   'indent',
+//   'link',
+//   'align',
+//   'color',
+//   'background',
+//   'size',
+//   'h1',
+// ]
 
 
 
@@ -274,7 +276,7 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
                 <TextField 
                   fullWidth label="제목" 
                   id="fullWidth" 
-                  value={this.state.title}
+                  value={title}
                   //onChange={e => this.setState({ title: e.target.value })}
                   onChange={e => this.chkStringLength(e.target.value)}
                 />

@@ -5,11 +5,11 @@ import React, {CSSProperties} from "react";
 
 //아이콘
 import Icon from '@mdi/react';
-import { mdiListBoxOutline } from '@mdi/js';
-import { mdiFileEditOutline } from '@mdi/js';
+// import { mdiListBoxOutline } from '@mdi/js';
+// import { mdiFileEditOutline } from '@mdi/js';
 import { mdiSquareEditOutline } from '@mdi/js';
 import { mdiDelete } from '@mdi/js';
-import { mdiArrowLeftBottomBold } from '@mdi/js';
+// import { mdiArrowLeftBottomBold } from '@mdi/js';
 import { mdiClose } from '@mdi/js';
 //mui
 import Button from '@mui/material/Button';
@@ -19,8 +19,8 @@ import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-import IconButton from '@mui/material/IconButton';
-import { mdiArrowLeft, mdiPencilOutline, mdiDeleteOutline } from '@mdi/js';
+// import IconButton from '@mui/material/IconButton';
+// import { mdiArrowLeft, mdiPencilOutline, mdiDeleteOutline } from '@mdi/js';
 
 
 type Notice = {
@@ -217,7 +217,7 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
     **보안 참고:** `dangerouslySetInnerHTML`을 정제 없이 사용하는 것은 위험할 수 있습니다. 프로덕션 환경에서는 안전한 HTML 렌더링 라이브러리를 사용하거나 자체 정제 로직을 구현하는 것을 고려하십시오.
    */
   render() {
-    const {title, content, date, noticeid, comments} = this.state;
+    const {title, content, date, noticeid} = this.state;
     return (
       <Box component="section" sx={{ 
         width: '100%', 

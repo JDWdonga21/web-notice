@@ -1,5 +1,7 @@
-import React, {CSSProperties} from "react";
-import { styled } from '@mui/material/styles';
+import React, {
+  // CSSProperties
+} from "react";
+// import { styled } from '@mui/material/styles';
 // import FormControlLabel from '@mui/material/FormControlLabel';
 //아이콘
 import Icon from '@mdi/react';
@@ -7,7 +9,14 @@ import Icon from '@mdi/react';
 import { mdiBullhornOutline } from '@mdi/js';
 //스위치
 // import Switch, { SwitchProps } from '@mui/material/Switch';
-import { AppBar, Toolbar, Typography, FormGroup, FormControlLabel, useTheme } from '@mui/material';
+import { 
+  AppBar, 
+  Toolbar, 
+  Typography, 
+  // FormGroup, 
+  // FormControlLabel, 
+  // useTheme 
+} from '@mui/material';
 // const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 //   width: 62,
 //   height: 34,
@@ -55,7 +64,7 @@ import { AppBar, Toolbar, Typography, FormGroup, FormControlLabel, useTheme } fr
 //   },
 // }));
 import "../../App.css"
-import Container from '@mui/material/Container';
+// import Container from '@mui/material/Container';
 
 type HeaderProps = {
     isdarkTheme: boolean;  
@@ -117,31 +126,31 @@ class Header extends React.Component<HeaderProps,{}>{
         )
     }
 }
-const styles: {[key in string]: CSSProperties}= {
-    body: {
-        width: '100%',
-        paddingTop: '15px',
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        // backgroundColor: '#ffc519',
-        // backgroundColor: '#1e1e1e',
-        borderBottom: '3px solid #ffffff'
-    },
-    headerLeft : {
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    headerCenter : {
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',        
-    },
-    headerRight : {
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-}
+// const styles: {[key in string]: CSSProperties}= {
+//     body: {
+//         width: '100%',
+//         paddingTop: '15px',
+//         display: 'flex',
+//         flexDirection: 'row',
+//         justifyContent: 'space-between',
+//         // backgroundColor: '#ffc519',
+//         // backgroundColor: '#1e1e1e',
+//         borderBottom: '3px solid #ffffff'
+//     },
+//     headerLeft : {
+//         display: 'flex',
+//         flexDirection: 'row',
+//         alignItems: 'center',
+//     },
+//     headerCenter : {
+//         display: 'flex',
+//         flexDirection: 'row',
+//         alignItems: 'center',        
+//     },
+//     headerRight : {
+//         display: 'flex',
+//         flexDirection: 'row',
+//         alignItems: 'center',
+//     },
+// }
 export default Header;

@@ -1,17 +1,19 @@
-import React, {CSSProperties} from "react";
+import React, {
+    // CSSProperties
+} from "react";
 //아이콘
 import Icon from '@mdi/react';
 import { mdiPlusCircle } from '@mdi/js';
-import { mdiListBoxOutline } from '@mdi/js';
-import { mdiFileEditOutline } from '@mdi/js';
-import { mdiSquareEditOutline } from '@mdi/js';
-import { mdiDelete } from '@mdi/js';
+// import { mdiListBoxOutline } from '@mdi/js';
+// import { mdiFileEditOutline } from '@mdi/js';
+// import { mdiSquareEditOutline } from '@mdi/js';
+// import { mdiDelete } from '@mdi/js';
 
 //mui
-import Stack from '@mui/material/Stack';
+// import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import { createTheme } from '@mui/material/styles';
+// import { createTheme } from '@mui/material/styles';
 
 
 import "../../App.css"
@@ -120,41 +122,41 @@ class Footer extends React.Component<Footerprops>{
         )
     }
 }
-const styles: {[key in string]: CSSProperties}= {
-    body: {
-        width: '100%',        
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#272727',
-        borderTop: '2px solid #7e848f',
-        position: 'fixed',
-        paddingTop: '5px',
-        paddingBottom: '5px',
-        bottom: 0,
-        left: 0,        
-    },
-    listBtns : {
-        display: 'flex',
-        width: '90vw',
-        margin: '4px',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    detailBtns : {
-        display: 'flex',
-        width: '90vw',
-        margin: '4px',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-around',
-    },
-    btnConteainer : {
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-    }
-}
+// const styles: {[key in string]: CSSProperties}= {
+//     body: {
+//         width: '100%',        
+//         display: 'flex',
+//         flexDirection: 'row',
+//         alignItems: 'center',
+//         justifyContent: 'center',
+//         backgroundColor: '#272727',
+//         borderTop: '2px solid #7e848f',
+//         position: 'fixed',
+//         paddingTop: '5px',
+//         paddingBottom: '5px',
+//         bottom: 0,
+//         left: 0,        
+//     },
+//     listBtns : {
+//         display: 'flex',
+//         width: '90vw',
+//         margin: '4px',
+//         flexDirection: 'row',
+//         alignItems: 'center',
+//         justifyContent: 'center',
+//     },
+//     detailBtns : {
+//         display: 'flex',
+//         width: '90vw',
+//         margin: '4px',
+//         flexDirection: 'row',
+//         alignItems: 'center',
+//         justifyContent: 'space-around',
+//     },
+//     btnConteainer : {
+//         display: 'flex',
+//         flexDirection: 'row',
+//         alignItems: 'center',
+//     }
+// }
 export default Footer;
