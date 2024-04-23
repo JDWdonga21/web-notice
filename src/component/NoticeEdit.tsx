@@ -1,9 +1,5 @@
 // NoticeEdit.tsx
-import React, {
-    // useMemo, 
-    // useRef,
-    // CSSProperties
-} from 'react';
+import React, {} from 'react';
 import ReactQuill, {
   // Quill
 } from 'react-quill';
@@ -57,27 +53,6 @@ type NoticeEditState = {
   editorHtml: string; // 에디터에 표시될 HTML (ReactQuill)
   htmlInput: string; // 사용자가 입력한 HTML (textarea)
 };
-
-// const formats = [
-//     'font',
-//   'header',
-//   'bold',
-//   'italic',
-//   'underline',
-//   'strike',
-//   'blockquote',
-//   'list',
-//   'bullet',
-//   'indent',
-//   'link',
-//   'align',
-//   'color',
-//   'background',
-//   'size',
-//   'h1',
-// ]
-
-
 
 class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
   quillRef: React.RefObject<ReactQuill>;
@@ -244,13 +219,10 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
         // Add other toolbar options as needed
         ['bold', 'italic', 'underline', 'strike'], // toggled buttons
         [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-        // [{ 'script': 'sub'}, { 'script': 'super' }], // superscript/subscript
         [{ 'indent': '-1'}, { 'indent': '+1' }], // outdent/indent
         [{ 'size': ['small', false, 'large', 'huge'] }], // custom dropdown
         [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
         ['clean'], // remove formatting button
-        // Here is the HTML edit button
-        // ['code-block'], // This button will allow users to enter HTML tags
       ],
     };
     const { title ,editorHtml, htmlInput } = this.state;
@@ -277,7 +249,6 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
                   fullWidth label="제목" 
                   id="fullWidth" 
                   value={title}
-                  //onChange={e => this.setState({ title: e.target.value })}
                   onChange={e => this.chkStringLength(e.target.value)}
                 />
               </CardContent>
@@ -322,7 +293,6 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
                   sx={{
                     width: '100%',
                     height: '30%'
-                    // backgroundColor: '#ffffff'
                   }}
                 />
               </CardContent> 
@@ -359,7 +329,6 @@ class NoticeEdit extends React.Component<NoticeEditProps, NoticeEditState> {
                       vertical
                       rotate={180}
                       color="white"
-                      // spin
                     />
                     취소하기
                   </Button>

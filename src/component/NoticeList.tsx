@@ -101,37 +101,4 @@ class NoticeList extends React.Component<NoticeListprops, NoticeListState>{
         )
     }
 }
-// const styles: {[key in string]: CSSProperties}= {
-//     body: {
-//         display: "flex",
-//         width: '90%',
-//         alignItems: 'center',
-//         justifyContent: 'center',
-//     },
-//     noticeList: {
-//         display: 'flex',
-//         flexDirection: 'column',
-//         alignItems: 'flex-start',
-//         padding: '5px',
-//         marginLeft: '5%',
-//         marginRight: '5%',
-//         marginBottom: '5px',
-//         width: '94vw',
-//         // borderRight: '2px solid #282c34',
-        
-//         // backgroundColor: 'azure',
-//     },
-//     titleArea: {
-//         marginTop: '20px'
-//     },
-//     titleText: {
-//         fontWeight: 'bold',
-//         fontSize: 24,
-//         color: '#ffffff'
-//     },
-//     dateArea: {
-//         marginBottom: '20px',
-//         color: '#ffffff'
-//     },
-// }
 export default NoticeList;

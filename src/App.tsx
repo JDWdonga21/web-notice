@@ -80,14 +80,11 @@ class App extends React.Component<{}, AppState> {
   }
   // 편집 화면을 표시하도록 상태를 업데이트
   handleEditNotice = (id : string | undefined) => {
-    //this.setState({currentScreen: 'edit', selectedNoticeId: id });
     //모달 적용
     this.setState({ isModalOpen: true,  currentScreen: 'edit', selectedNoticeId: id });
   }
   // 새 공지 작성을 위한 편집 화면을 표시하도록 상태를 업데이트
   handleAddNotice = () => {
-    //모달 적용전
-    //this.setState({ currentScreen: 'edit', selectedNoticeId: undefined });
     //모달 적용
     this.setState({ isModalOpen: true, currentScreen: 'edit', selectedNoticeId: undefined });
   };
@@ -98,9 +95,7 @@ class App extends React.Component<{}, AppState> {
       const updatedNotices = savedNotices.filter((notice: Notice) => notice.id !== id);
       localStorage.setItem('notices', JSON.stringify(updatedNotices));
     }   
-
     //삭제 후 목록 화면으로
-    //this.setState({currentScreen: 'list'});
     this.setState({currentScreen: 'list', isModalOpen: false});
   }
   //공지가 추가되거나 편집된 후 목록 화면으로 돌아가도록 상태를 업데이트
@@ -113,19 +108,10 @@ class App extends React.Component<{}, AppState> {
   };
 
   handleCloseModal = () => {
-    // this.setState({ isModalOpen: false, currentScreen: 'list' });
+
   };
 
   handleThemes = () => {
-    // if(this.state.isdarkTheme === true){
-    //   this.setState({
-    //     isdarkTheme : false
-    //   })
-    // } else {
-    //   this.setState({
-    //     isdarkTheme : true
-    //   })
-    // }
     const newDarkModeState = !this.state.isdarkTheme;
     this.setState({
       isdarkTheme: newDarkModeState
@@ -168,26 +154,14 @@ class App extends React.Component<{}, AppState> {
             {currentScreen === 'list' && (
               <div>
                 <NoticeList onNoticeClick={this.handleNoticeClick} />
-                {/* <button onClick={this.handleAddNotice}>공지사항 추가</button> */}
               </div>
             )}
             {/* 상세 화면 */}
             {currentScreen === 'detail' && selectedNoticeId && (
-              // <NoticeDetail 
-              //   id={selectedNoticeId} 
-              //   onBackToList={this.handleBackToList}
-              //   onEditNotice={() => this.handleEditNotice(selectedNoticeId)}
-              //   onDelete={this.handleDeleteNotice} 
-              // />
               <div></div>
             )}
             {/* 추가,편집 화면 */}
             {currentScreen === 'edit' && (
-              // <NoticeEdit 
-              //   id={selectedNoticeId}
-              //   onNoticeAdded = {this.handleNoticeAdded}  
-              //   onCancel={this.handleNoticeAdded}        
-              // />
               <div></div>
             )}
           </Box>

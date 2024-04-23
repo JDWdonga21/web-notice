@@ -1,15 +1,10 @@
 // NoticeDetail.tsx
 import React, {CSSProperties} from "react";
-//import parse from 'html-react-parser';
-// import DOMPurify from 'dompurify';
 
 //아이콘
 import Icon from '@mdi/react';
-// import { mdiListBoxOutline } from '@mdi/js';
-// import { mdiFileEditOutline } from '@mdi/js';
 import { mdiSquareEditOutline } from '@mdi/js';
 import { mdiDelete } from '@mdi/js';
-// import { mdiArrowLeftBottomBold } from '@mdi/js';
 import { mdiClose } from '@mdi/js';
 //mui
 import Button from '@mui/material/Button';
@@ -19,9 +14,6 @@ import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-// import IconButton from '@mui/material/IconButton';
-// import { mdiArrowLeft, mdiPencilOutline, mdiDeleteOutline } from '@mdi/js';
-
 
 type Notice = {
   id: string, //공지 식별자
@@ -87,10 +79,6 @@ class NoticeDetail extends React.Component<NoticeDetailProps, NoticeDetailState>
     // ID에 해당하는 공지사항 정보를 로딩합니다.
     const { id } = this.props;
     const savedNotices = JSON.parse(localStorage.getItem('notices') || '[]');
-    // const notice = savedNotices.find((notice: Notice) => notice.id === id);
-    // if (notice) {       
-    //   this.setState({ ...notice });
-    // }
     const noticeIndex = savedNotices.findIndex((notice: Notice) => notice.id === id);
     console.log(noticeIndex)
     if (noticeIndex !== -1) {
@@ -435,8 +423,6 @@ const styles: {[key in string]: CSSProperties}= {
     height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    // minHeight: '80vh', // 뷰포트의 높이에 맞게 조정
-    // paddingBottom: '20px', // 하단에 여유 공간 추가
     backgroundColor: '#272727'
   },
   header: {
@@ -478,7 +464,6 @@ const styles: {[key in string]: CSSProperties}= {
     overflowY: 'auto', // 내용이 넘칠 경우 스크롤 가능
     flexDirection: 'column',
     height: '80%',
-    // height: 'calc(50vh - 80px)',
     alignItems: 'flex-start',
     padding: '10px',
     marginLeft: '5%',
@@ -503,8 +488,6 @@ const styles: {[key in string]: CSSProperties}= {
     justifyContent: 'center',
     borderTop: '2px solid #7e848f',
     padding: '5px',
-    // marginLeft: '5%',
-    // marginRight: '5%',
     width: '94vw', 
     height: '10%',
     backgroundColor: '#272727',
@@ -512,7 +495,6 @@ const styles: {[key in string]: CSSProperties}= {
   detailBtns: {
     display: 'flex',
         width: '94vw',
-        // margin: '4px',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
